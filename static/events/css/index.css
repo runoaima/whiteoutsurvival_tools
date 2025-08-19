@@ -1,0 +1,107 @@
+/* index.css */
+
+/* ベースのスタイル（bodyなど） */
+body {
+    background-color: #f7f9fc; /* 非常に明るいオフホワイト */
+    color: #444; /* 落ち着いたダークグレー */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* ツールリストのコンテナ */
+.tool-list-container {
+    /* この行を修正: max-widthを広げるか、削除する */
+    max-width: 1200px; /* 以前の1.5倍に広げる */
+    margin: 50px auto;
+    text-align: center;
+}
+
+/* タイトル */
+.tool-list-title {
+    font-size: 2.5em;
+    color: #333;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+/* ツールリンクのコンテナ */
+.tool-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 各ツールカードのデザイン */
+.tool-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    text-decoration: none;
+    color: #444;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    text-align: left;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #5aa1f0; /* 明るい青 */
+}
+
+.card-description {
+    font-size: 1em;
+    color: #777;
+    line-height: 1.5;
+}
+
+/* 未実装（近日公開）のスタイル */
+.coming-soon {
+    opacity: 0.6;
+    cursor: not-allowed;
+    position: relative;
+    overflow: hidden;
+    pointer-events: none; /* クリック無効化 */
+}
+
+.coming-soon::after {
+    content: "近日公開";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-10deg);
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #c0392b;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 2px solid #c0392b;
+}
+
+.coming-soon:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* レスポンシブデザイン */
+@media (min-width: 768px) {
+    .tool-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .tool-card {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}

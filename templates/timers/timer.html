@@ -1,0 +1,138 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'timers/css/timer.css' %}">
+
+<div id="clock">
+    <label id="time-after-label">現在時刻（UTC）:</label>
+    <span id="time-after"></span>
+    <span id="time-after-jst"></span>
+</div>
+<div id="offset-form" class="form-group">
+    <label for="offset">時刻補正（秒）：</label>
+    <input type="number" id="offset" value="0.0" step="0.1">
+    <button type="button" id="offset-plus-01" class="button-adjust">
+        <span>＋</span>
+    </button>
+    <button type="button" id="offset-minus-01" class="button-adjust">
+        <span>ー</span>
+    </button>
+    <span id="check-message" class="info-text">※補正の必要性は要検証です</span>
+</div>
+<div id="arrival-time-group" class="form-group">
+    <label for="arrival-time">到着時刻（UTC）:</label>
+    <input type="text" id="arrival-time" value="14:59:59">
+    <span id="arrival-time-jst"></span>
+    <div class="button-row">
+        <button type="button" id="set-plus-1" class="button-adjust">
+            <span>＋</span>
+        </button>
+        <button type="button" id="set-minus-1" class="button-adjust">
+            <span>ー</span>
+        </button>
+        <button type="button" id="set-now-plus-5">5分後</button>
+        <button type="button" id="set-now-plus-10">10分後</button>
+        <button type="button" id="set-5959">59:59</button>
+    </div>
+</div>
+<div id="calculation-form">
+    <fieldset>
+        <legend>集結1</legend>
+        <div class="radio-group">
+            <label>集結:</label>
+            <label><input type="radio" name="gathering-time-1" value="0">0分</label>
+            <label><input type="radio" name="gathering-time-1" value="1">1分</label>
+            <label><input type="radio" name="gathering-time-1" value="5" checked>5分</label>
+        </div>
+        <div id="march-time-group-1" class="form-group">
+            <label for="march-time-1">行軍時間（秒）：</label>
+            <input type="number" id="march-time-1" value="15">
+            <button type="button" id="march-plus-1-1" class="button-adjust">
+                <span>＋</span>
+            </button>
+            <button type="button" id="march-minus-1-1" class="button-adjust">
+                <span>ー</span>
+            </button>
+            <span class="info-text">※ペットバフによる変化注意！</span>
+        </div>
+        <div class="timer-display">
+            <label>集結開始（UTC）:</label>
+            <span id="start-time-1" class="start-time"></span>
+            <span class="countdown-label">集結開始まで：</span>
+            <span id="countdown-1" class="countdown"></span>
+        </div>
+        <div class="timer-display">
+            <label>集結時間残り：</label>
+            <span id="gathering-countdown-1" class="countdown-timer"></span>
+            <span class="countdown-label">行軍時間残り：</span>
+            <span id="march-countdown-1" class="countdown-timer"></span>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>集結2</legend>
+        <div class="radio-group">
+            <label>集結:</label>
+            <label><input type="radio" name="gathering-time-2" value="1">1分</label>
+            <label><input type="radio" name="gathering-time-2" value="5" checked>5分</label>
+        </div>
+        <div id="march-time-group-2" class="form-group">
+            <label for="march-time-2">行軍時間（秒）：</label>
+            <input type="number" id="march-time-2" value="15">
+            <button type="button" id="march-plus-1-2" class="button-adjust">
+                <span>＋</span>
+            </button>
+            <button type="button" id="march-minus-1-2" class="button-adjust">
+                <span>ー</span>
+            </button>
+        </div>
+        <div class="timer-display">
+            <label>集結開始（UTC）:</label>
+            <span id="start-time-2" class="start-time"></span>
+            <span class="countdown-label">集結開始まで：</span>
+            <span id="countdown-2" class="countdown"></span>
+        </div>
+        <div class="timer-display">
+            <label>集結時間残り：</label>
+            <span id="gathering-countdown-2" class="countdown-timer"></span>
+            <span class="countdown-label">行軍時間残り：</span>
+            <span id="march-countdown-2" class="countdown-timer"></span>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>集結3</legend>
+        <div class="radio-group">
+            <label>集結:</label>
+            <label><input type="radio" name="gathering-time-3" value="1">1分</label>
+            <label><input type="radio" name="gathering-time-3" value="5" checked>5分</label>
+        </div>
+        <div id="march-time-group-3" class="form-group">
+            <label for="march-time-3">行軍時間（秒）：</label>
+            <input type="number" id="march-time-3" value="15">
+            <button type="button" id="march-plus-1-3" class="button-adjust">
+                <span>＋</span>
+            </button>
+            <button type="button" id="march-minus-1-3" class="button-adjust">
+                <span>ー</span>
+            </button>
+        </div>
+        <div class="timer-display">
+            <label>集結開始（UTC）:</label>
+            <span id="start-time-3" class="start-time"></span>
+            <span class="countdown-label">集結開始まで：</span>
+            <span id="countdown-3" class="countdown"></span>
+        </div>
+        <div class="timer-display">
+            <label>集結時間残り：</label>
+            <span id="gathering-countdown-3" class="countdown-timer"></span>
+            <span class="countdown-label">行軍時間残り：</span>
+            <span id="march-countdown-3" class="countdown-timer"></span>
+        </div>
+    </fieldset>
+</div>
+
+
+<script src="{% static 'timers/js/timer.js' %}"></script>
+
+{% endblock %}

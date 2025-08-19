@@ -1,0 +1,104 @@
+/* リニューアル後のCSS */
+
+/* 全体のスタイル */
+body {
+    background-color: #f5f7fa; /* 非常に明るい、落ち着いたブルーグレー */
+    color: #495057; /* 濃いめのグレー */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 2rem; /* 全体に余白を追加 */
+}
+
+/* 画像のスタイル */
+.img-clean {
+    width: 200px;
+    height: auto;
+    background: transparent;
+    transition: transform 0.3s ease;
+}
+
+.img-clean:hover {
+    transform: scale(1.05); /* ホバーで少し拡大 */
+}
+
+/* フォーム要素とテーブル */
+select, table {
+    background-color: #ffffff;
+    color: #495057;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+select:focus, table:focus-within {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* テーブルのスタイル */
+.styled-table {
+    background-color: #ffffff;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.styled-table th,
+.styled-table td {
+    /* ここを修正: paddingを小さくして行間を詰めます */
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+    text-align: center;
+    /* フォントサイズを少し小さくして、よりコンパクトに */
+    font-size: 0.9em;
+}
+
+.styled-table th {
+    background-color: #3498db;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.styled-table tbody tr:last-child {
+    background-color: #dff0d8;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.styled-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* テーブルのホバーエフェクト */
+.styled-table tbody tr:hover:not(:last-child) {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+/* 関連リンクをボタン風に */
+.related-tools a {
+    display: block;
+    width: 400px; /* ボタンの幅を固定 */
+    margin: 5px 0;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #f1c40f; /* リンクの背景色 */
+    text-align: center;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.related-tools a:hover {
+    background-color: #f39c12;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}

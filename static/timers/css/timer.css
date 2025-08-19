@@ -1,0 +1,214 @@
+body {
+    font-size: 16px;
+    font-family: 'Arial', 'Meiryo', sans-serif;
+}
+
+#time-after {
+    font-size: 16px;
+}
+
+#offset-form input[type="number"] {
+    width: 60px;
+}
+
+#arrival-time-group input[type="text"],
+#arrival-time-group input[type="number"] {
+    width: 120px;
+    box-sizing: border-box;
+}
+
+#march-time {
+    width: 60px;
+}
+
+#calculation-form #start-time {
+    font-size: 1.8em !important;
+}
+
+#calculation-form #countdown {
+    font-size: 2.1em !important;
+    color: red;
+}
+
+#check-message {
+    font-size: 0.8em;
+    color: blue;
+}
+
+#kugiri-1 {
+    font-size: 0.8em;
+    color: orange;
+}
+
+#kugiri-2 {
+    font-size: 0.8em;
+    color: green;
+}
+
+#kugiri-3 {
+    font-size: 0.8em;
+    color: blue;
+}
+
+#gathering-countdown-area {
+    margin-top: 10px;
+}
+
+#gathering-countdown,
+#march-countdown {
+    font-size: 1.8em;
+}
+
+#march-time-group-1 input[type="number"],
+#march-time-group-2 input[type="number"],
+#march-time-group-3 input[type="number"] {
+    width: 60px;
+}
+
+#start-time-1,
+#start-time-2,
+#start-time-3 {
+    font-size: 1.6em;
+}
+
+#countdown-1 {
+    color: red;
+}
+
+#countdown-1,
+#countdown-2,
+#countdown-3,
+#gathering-countdown-1,
+#gathering-countdown-2,
+#gathering-countdown-3,
+#march-countdown-1,
+#march-countdown-2,
+#march-countdown-3 {
+    font-size: 1.7em;
+}
+
+/* timer.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #f4f7f9;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+#clock {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#time-after {
+    font-size: 2em;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.milliseconds {
+    font-size: 0.7em;
+}
+
+#time-after-jst, #arrival-time-jst {
+    display: block;
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group label {
+    white-space: nowrap;
+}
+
+input[type="text"], input[type="number"] {
+    font-size: 1.2em;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.button-adjust {
+    padding: 8px 10px;
+    font-size: 1em;
+}
+
+.info-text {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.button-row {
+    display: flex;
+    gap: 5px;
+    margin-left: 10px;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+legend {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #555;
+    padding: 0 10px;
+}
+
+.radio-group {
+    margin: 10px 0;
+}
+
+.radio-group label {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.timer-display {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+}
+
+.start-time, .countdown, .countdown-timer {
+    font-weight: bold;
+    color: #d9534f;
+}
+
+.countdown-label {
+    margin-left: 20px;
+    color: #666;
+}

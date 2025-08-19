@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ゲーム攻略サイト{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <h1>ゲーム攻略＆計算ツールサイト</h1>
+        <a href="https://whiteoutsurvival.centurygames.com/ja/" class="logo-link">
+            <img src="{% static 'images/base/whiteoutsurvival.jpg' %}" alt="ロゴ">
+            <span>By WhiteOutSurvival</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="/">トップ</a></li>
+                <li><a href="/materials/">素材計算ツール</a></li>
+                <li><a href="/timers/">時間計算ツール</a></li>
+                <li><a href="/events/">イベント攻略</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2025 Runoaima / Whiteout Survival Tools</p>
+    </footer>
+
+    <script src="{% static 'base/js/base.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

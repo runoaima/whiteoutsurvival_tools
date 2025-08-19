@@ -1,0 +1,28 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'materials/css/chief_gear.css' %}">
+
+<h1 style="margin: 5px 0; font-size: 1.5em; color: #ebc001;">領主装備資材計算ツール</h1>
+<h1 style="margin: 5px 0; font-size: 1.0em; color: #ff0303;">※レベルを逆に入力すると値が出力されません</h1>
+<div id="rankGroups"></div>
+
+<div id="result"></div>
+
+<div class="related-tools">
+    <h2 class="related-title">関連ツール</h2>
+    <a href="{% url 'fire_crystal' %}" class="related-link">火晶計算ツール</a>
+    <a href="{% url 'hero_gear' %}" class="related-link">英雄装備計算ツール</a>
+</div>
+
+<div id="chief_gear_image_data" 
+    data-alloy-url="{% static 'images/materials/chief_gear/alloy.jpg' %}"
+    data-polish-url="{% static 'images/materials/chief_gear/polish.jpg' %}"
+    data-blueprint-url="{% static 'images/materials/chief_gear/blueprint.jpg' %}"
+    data-amber-url="{% static 'images/materials/chief_gear/amber.jpg' %}"></div>
+
+<script src="{% static 'materials/js/chief_gear.js' %}"></script>
+
+{% endblock %}

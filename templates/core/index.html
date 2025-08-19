@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+
+{% block title %}トップページ{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'core/css/index.css' %}">
+
+<div class="top-page-container">
+    <h2 class="welcome-heading">ようこそ！</h2>
+    <p class="intro-text">
+        ここから各ツールや攻略情報にアクセスできます。
+    </p>
+
+    <div class="tool-list">
+        <h3>便利なツール</h3>
+        <ul>
+            <li><a href="{% url 'materials_index' %}">素材計算ツール</a></li>
+            <li><a href="{% url 'timers_index' %}">時間計算ツール</a></li>
+            <li><a href="{% url 'events_index' %}">イベント攻略情報</a></li>
+        </ul>
+    </div>
+
+    <div class="info-list">
+        <h3>ログイン機能</h3>
+        <p>※今後追加予定です。</p>
+        <ul>
+            </ul>
+    </div>
+</div>
+
+<script src="{% static 'core/js/index.js' %}"></script>
+
+{% endblock %}

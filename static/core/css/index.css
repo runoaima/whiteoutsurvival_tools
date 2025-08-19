@@ -1,0 +1,61 @@
+body {
+    font-family: sans-serif;
+    background: #f8f8f8;
+    margin: 20px;
+}
+h1 {
+    color: darkred;
+}
+/* styles.css (例) */
+
+.top-page-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.welcome-heading {
+    font-size: 2.5em;
+    color: #34495e;
+}
+
+.intro-text {
+    font-size: 1.2em;
+    color: #7f8c8d;
+}
+
+.tool-list, .info-list {
+    margin-top: 30px;
+}
+
+.tool-list h3, .info-list h3 {
+    color: #3498db;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.tool-list ul, .info-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tool-list a, .info-list a {
+    display: block;
+    margin: 10px 0;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.tool-list a:hover, .info-list a:hover {
+    background-color: #e0e0e0;
+}

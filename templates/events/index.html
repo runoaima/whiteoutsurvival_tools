@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}素材計算ツール{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'events/css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="tool-list-container">
+    <h1 class="tool-list-title">イベント攻略一覧</h1>
+    <div class="tool-links">
+        <div class="tool-card coming-soon">
+            <h2 class="card-title">SVS情報</h2>
+            <p class="card-description">近日公開</p>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'events/js/index.js' %}"></script>
+
+{% endblock %}

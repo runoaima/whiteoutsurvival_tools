@@ -1,7 +1,13 @@
-body {
-    font-family: sans-serif;
-    background: #f8f8f8;
-    margin: 20px;
+main {
+    flex-grow: 1;
+    padding: 10px;
+    margin: 10px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 180px; /* ヘッダーの高さに合わせて調整 */
 }
 h1 {
     color: darkred;

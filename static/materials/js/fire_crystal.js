@@ -418,7 +418,7 @@ function updateTable() {
     });
     html += `</tr></tbody></table>`;
 
-    const resultDiv = document.getElementById('resultDiv');
+    //const resultDiv = document.getElementById('resultDiv');
     resultDiv.innerHTML = html;
 }
 

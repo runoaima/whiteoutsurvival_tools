@@ -84,20 +84,6 @@ select:focus, table:focus-within {
     cursor: pointer;
 }
 
-/* styled-tableの親要素に適用するスタイル */
-.table-container {
-    overflow-x: auto; /* テーブルがはみ出す場合に横スクロールを有効にする */
-    -webkit-overflow-scrolling: touch; /* iOSでのスムーズなスクロールを可能に */
-}
-
-/* スクロールバーを非表示にする（任意） */
-.table-container::-webkit-scrollbar {
-    display: none;
-}
-.table-container {
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
-}
 
 
 /* 関連リンクをボタン風に */

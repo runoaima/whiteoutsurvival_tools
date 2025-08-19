@@ -386,14 +386,13 @@ function updateTable() {
                 });
             }
         }
-
     }
 
-    let html = `<table class="styled-table"><tr><th>セット</th>`;
+    let html = `<table class="styled-table"><thead><tr><th>セット</th>`;
     materialKeys.forEach(key => {
         html += `<th><img src="${fire_crystal_materialImages[key]}" width="32"><br>${key}</th>`;
     });
-    html += `</tr>`;
+    html += `</tr></thead><tbody>`;
 
     const materialUnits = {
         "火晶": "",
@@ -415,9 +414,11 @@ function updateTable() {
 
     html += `<tr><td><strong>合計</strong></td>`;
     materialKeys.forEach(key => {
-        html += `<td><strong>${totalAll[key]}${materialUnits[key]}</strong></td>`;
+            html += `<td><strong>${totalAll[key]}${materialUnits[key]}</strong></td>`;
     });
-    html += `</tr></table>`;
+    html += `</tr></tbody></table>`;
+
+    const resultDiv = document.getElementById('resultDiv');
     resultDiv.innerHTML = html;
 }
 

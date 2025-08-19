@@ -265,7 +265,7 @@ function addOne() {
 
         <br><br>
 
-        <label class="slider-label-container">追加スライダー(Lv.20まで):
+        <label class="slider-label-container">:
             <span id="newval${count}" class="slider-label">0</span>
         </label>
         <input type="range" id="newslider${count}" min="0" max="20" value="0" step="1" class="slider">

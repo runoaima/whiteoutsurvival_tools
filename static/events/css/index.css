@@ -1,29 +1,34 @@
 /* index.css */
 
 /* ベースのスタイル（bodyなど） */
-body {
-    background-color: #f7f9fc; /* 非常に明るいオフホワイト */
-    color: #444; /* 落ち着いたダークグレー */
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 20px;
+main {
+    flex-grow: 1;
+    padding: 10px;
+    margin: 10px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
     box-sizing: border-box;
+    margin-top: 180px; /* ヘッダーの高さに合わせて調整 */
 }
 
 /* ツールリストのコンテナ */
 .tool-list-container {
-    /* この行を修正: max-widthを広げるか、削除する */
-    max-width: 1200px; /* 以前の1.5倍に広げる */
+    /* 中央配置を維持しつつ、左右の余白を適切に確保 */
+    max-width: 1200px;
     margin: 50px auto;
-    text-align: center;
+    padding: 0 20px;
 }
 
 /* タイトル */
 .tool-list-title {
     font-size: 2.5em;
+    font-weight: bold; /* フォントを太くする */
     color: #333;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 40px;
+    text-align: center;
 }
 
 /* ツールリンクのコンテナ */
@@ -55,7 +60,7 @@ body {
 .card-title {
     margin-top: 0;
     font-size: 1.5em;
-    color: #5aa1f0; /* 明るい青 */
+    color: #5aa1f0;
 }
 
 .card-description {
@@ -70,7 +75,7 @@ body {
     cursor: not-allowed;
     position: relative;
     overflow: hidden;
-    pointer-events: none; /* クリック無効化 */
+    pointer-events: none;
 }
 
 .coming-soon::after {
@@ -102,6 +107,5 @@ body {
     }
     .tool-card {
         flex: 1 1 calc(50% - 20px);
-        max-width: calc(50% - 20px);
     }
 }

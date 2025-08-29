@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'materials',
     'timers',
     'events',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -106,9 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
 
@@ -133,3 +134,33 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# カスタムユーザーモデルの指定
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# ログイン後のリダイレクト先
+LOGIN_REDIRECT_URL = '/'
+
+# ログアウト後のリダイレクト先
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+# ログインURL
+LOGIN_URL = 'login'
+
+# メール設定（開発環境用にコンソールバックエンドを使用）
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# 本番環境用のメール設定（例: Gmail SMTPサーバー）
+import os
+from dotenv import load_dotenv
+
+# .env ファイルを読み込む
+load_dotenv()
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""  # ← ここはスペースなし
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

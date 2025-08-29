@@ -19,3 +19,11 @@ def chief_gear(request):
 # 英雄装備計算ツール
 def hero_gear(request):
     return render(request, "materials/hero_gear.html")
+
+# 領主宝石計算ツール
+def chief_charm(request):
+    return render(request, "materials/chief_charm.html")
+
+# ヒーロースター計算ツール
+def hero_star(request):
+    return render(request, "materials/hero_star.html")

@@ -1,0 +1,103 @@
+/* accounts/static/accounts/css/profile_edit.css */
+
+/* 全体 */
+body {
+    font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* タイトル */
+h1 {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 1.8rem;
+    color: #444;
+}
+
+/* フォーム全体 */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* セクション見出し */
+form h2 {
+    font-size: 1.2rem;
+    margin: 20px 0 10px;
+    color: #007bff;
+    border-left: 4px solid #007bff;
+    padding-left: 8px;
+}
+
+/* Django form.as_p の <p> */
+form p {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* label */
+form label {
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* input / textarea / select */
+form input, form textarea, form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+form input:focus, form textarea:focus, form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* ボタンエリア */
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* 保存ボタン */
+.btn-save {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-save:hover {
+    background: #0056b3;
+}
+
+/* キャンセルボタン */
+.btn-cancel {
+    background: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-cancel:hover {
+    background: #c7c7c7;
+}

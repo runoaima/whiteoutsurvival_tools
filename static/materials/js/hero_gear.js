@@ -265,27 +265,39 @@ function addOne() {
 
         <br><br>
 
-        <label class="slider-label-container">製錬Lv:
-            <span id="newval${count}" class="slider-label">0</span>
+        <label class="slider-label-container">製錬現在Lv:
+            <span id="newvalStart${count}" class="slider-label">0</span>
         </label>
-        <input type="range" id="newslider${count}" min="0" max="20" value="0" step="1" class="slider">
+        <input type="range" id="newsliderStart${count}" min="0" max="20" value="0" step="1" class="slider">
+
+        <br><br>
+        
+        <label class="slider-label-container">製錬希望Lv:
+            <span id="newvalEnd${count}" class="slider-label">20</span>
+        </label>
+        <input type="range" id="newsliderEnd${count}" min="0" max="20" value="20" step="1" class="slider">
     `;
     rankGroups.appendChild(div);
 
     const startSlider = document.getElementById(`start${count}`);
     const endSlider = document.getElementById(`end${count}`);
-    const newSlider = document.getElementById(`newslider${count}`);
+    const newSliderStart = document.getElementById(`newsliderStart${count}`);
+    const newSliderEnd = document.getElementById(`newsliderEnd${count}`);
 
-    startSlider.addEventListener("input", function() {
+    startSlider.addEventListener("input", function () {
         updateLabel(this.value, `sval${count}`);
         updateTable();
     });
-    endSlider.addEventListener("input", function() {
+    endSlider.addEventListener("input", function () {
         updateLabel(this.value, `eval${count}`);
         updateTable();
     });
-    newSlider.addEventListener("input", function() {
-        updateLabel(this.value, `newval${count}`);
+    newSliderStart.addEventListener("input", function () {
+        updateLabel(this.value, `newvalStart${count}`);
+        updateTable();
+    });
+    newSliderEnd.addEventListener("input", function () {
+        updateLabel(this.value, `newvalEnd${count}`);
         updateTable();
     });
 
@@ -323,17 +335,17 @@ function updateTable() {
     for (let i = 1; i <= count; i++) {
         const startEl = document.getElementById(`start${i}`);
         const endEl = document.getElementById(`end${i}`);
-        const newSliderEl = document.getElementById(`newslider${i}`);
+        const newStart = parseInt(document.getElementById(`newsliderStart${i}`).value);
+        const newEnd = parseInt(document.getElementById(`newsliderEnd${i}`).value);
 
         const from = parseInt(startEl.value);
         const to = parseInt(endEl.value);
-        const newLevel = parseInt(newSliderEl.value);
 
         // 現在/希望レベルの計算
         if (from !== to && from < to) {
             for (let lv = from; lv < to; lv++) {
-                if (!materialTable[lv+1]) continue;
-                materialTable[lv+1].forEach(entry => {
+                if (!materialTable[lv + 1]) continue;
+                materialTable[lv + 1].forEach(entry => {
                     const [name, val] = entry.split("×");
                     const n = parseInt(val);
                     totalsPerSet[i - 1][name] += n;
@@ -343,10 +355,10 @@ function updateTable() {
         }
 
         // 追加スライダーの計算
-        if (newLevel > 0) {
-            for (let lv = 1; lv <= newLevel; lv++) {
-                if (!materialTableNew[lv]) continue;
-                materialTableNew[lv].forEach(entry => {
+        if (newStart !== newEnd && newStart < newEnd) {
+            for (let lv = newStart; lv < newEnd; lv++) {
+                if (!materialTableNew[lv + 1]) continue;
+                materialTableNew[lv + 1].forEach(entry => {
                     const [name, val] = entry.split("×");
                     const n = parseInt(val);
                     totalsPerSet[i - 1][name] += n;

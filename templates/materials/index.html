@@ -17,18 +17,19 @@
             <h2 class="card-title">領主装備計算ツール</h2>
             <p class="card-description">領主装備の強化に必要な素材を計算します。</p>
         </a>
+        <a href="{% url 'chief_charm' %}" class="tool-card">
+            <h2 class="card-title">領主宝石計算ツール</h2>
+            <p class="card-description">領主宝石の強化に必要な素材を計算します。</p>
+        </a>
         <a href="{% url 'hero_gear' %}" class="tool-card">
             <h2 class="card-title">英雄装備計算ツール</h2>
             <p class="card-description">英雄装備の強化に必要な素材を計算します。</p>
         </a>
-        <div class="tool-card coming-soon">
+        <a href="{% url 'hero_star' %}" class="tool-card">
             <h2 class="card-title">英雄ランク計算ツール</h2>
-            <p class="card-description">近日公開</p>
-        </div>
-        <div class="tool-card coming-soon">
-            <h2 class="card-title">領主宝石計算ツール</h2>
-            <p class="card-description">近日公開</p>
-        </div>
+            <p class="card-description">英雄星ランクの強化に必要な素材を計算します。</p>
+        </a>
+        
     </div>
 </div>
 {% endblock %}

@@ -1,0 +1,291 @@
+/* リニューアル後のCSS */
+
+/* 全体のスタイル */
+main {
+    flex-grow: 1;
+    padding: 10px;
+    margin: 10px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%; /* 幅を画面いっぱいに広げる */
+    max-width: 1200px; /* 最大幅を設定してPCで見やすくする */
+    box-sizing: border-box;
+    margin-top: 180px; /* ヘッダーの高さに合わせて調整 */
+}
+
+/* 警告メッセージのスタイル */
+.warn {
+    color: #dc3545; /* 警告に使う赤色 */
+    margin-left: 10px;
+    font-size: 0.9em;
+    font-weight: bold;
+    animation: pulse 1.5s infinite; /* アニメーションを追加 */
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* フォーム要素とテーブル */
+select, table {
+    background-color: #ffffff;
+    color: #495057;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+select:focus, table:focus-within {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* テーブルのスタイル */
+.styled-table {
+    background-color: #ffffff;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    overflow: hidden; /* 角丸を適用するために必要 */
+    border-radius: 12px;
+}
+
+/* テーブルを囲むためのコンテナスタイル */
+.table-container {
+    overflow-x: auto; /* コンテンツがはみ出た場合に水平スクロールを有効にする */
+    -webkit-overflow-scrolling: touch; /* iOSでのスムーズなスクロールを可能に */
+}
+
+/* スクロールバーを非表示にする（任意） */
+.table-container::-webkit-scrollbar {
+    display: none;
+}
+.table-container {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e9ecef;
+    text-align: center;
+}
+
+.styled-table th {
+    background-color: #3498db; /* 落ち着いた青色 */
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.styled-table tbody tr:last-child {
+    background-color: #dff0d8; /* 淡い緑色 */
+    font-weight: bold;
+    color: #28a745; /* 強調するための濃い緑色 */
+}
+
+.styled-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* テーブルのホバーエフェクト */
+.styled-table tbody tr:hover:not(:last-child) {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+/* スライダーのスタイル */
+.slider {
+    width: 100%;
+    height: 10px; /* スライダーの高さ調整 */
+    appearance: none;
+    border-radius: 5px;
+    background: #e9ecef;
+    outline: none;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #5aa1f0; /* スライダーの色を明るい青に */
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 色別スライダー（新しいスタイル） */
+.slider.blue::-webkit-slider-thumb {
+    background: #3498db;
+}
+
+.slider.red::-webkit-slider-thumb {
+    background: #e74c3c;
+}
+
+.slider-label {
+    display: inline-block;
+    width: 50px;
+    font-weight: bold;
+    font-size: 1em;
+    transition: all 0.2s ease-in-out;
+    text-align: right;
+    color: #3498db; /* ラベルの色をスライダーに合わせる */
+}
+
+/* アイコンのアニメーション */
+.material-icon {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.material-icon.loaded {
+    opacity: 1;
+}
+
+.equipment-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #3498db; /* 青色で強調 */
+}
+
+.slider-label-container {
+    color: #555; /* 落ち着いた色 */
+    font-weight: bold;
+}
+/* hero_gear.css */
+
+/* ページのタイトルと警告 */
+.tool-title {
+    margin: 5px 0;
+    font-size: 1.5em;
+    color: #3498db; /* 落ち着いた青色 */
+}
+
+.warning-message {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #e74c3c; /* 警告に使う赤色 */
+    font-weight: bold;
+}
+
+/* ボタンとコントロールのスタイル */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center; /* ボタンを中央に配置 */
+}
+
+.add-button, .sub-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px; /* 丸みを帯びたデザイン */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-button {
+    background-color: #2ecc71; /* 緑色 */
+}
+
+.add-button:hover {
+    background-color: #27ae60;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sub-button {
+    background-color: #e67e22; /* オレンジ色 */
+}
+
+.sub-button:hover {
+    background-color: #d35400;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 関連リンクをボタン風に */
+.related-tools a {
+    display: block;
+    width: 200px; /* ボタンの幅を固定 */
+    margin: 5px 0;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #f1c40f; /* リンクの背景色 */
+    text-align: center;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.related-tools a:hover {
+    background-color: #f39c12;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 星の欠片・★表示用 */
+.stars-display {
+    display: flex;
+    gap: 4px;
+    margin-top: 5px;
+    justify-content: flex-start;
+}
+
+/* まだ欠片の☆ */
+.stars-display span.piece {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle at 30% 30%, #ffd700 60%, #ffdd88 100%);
+    clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 
+        50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+    ); /* 星形 */
+    opacity: 0.5;
+    transform: scale(0.7);
+    transition: all 0.3s ease-in-out;
+}
+
+/* 完成した★ */
+.stars-display span.star {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: radial-gradient(circle at 30% 30%, #ffdd33 60%, #ffbb00 100%);
+    clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 
+        50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+    );
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25), 0 0 6px rgba(255,220,50,0.5);
+    animation: glow 1.5s infinite alternate;
+    transform: scale(1);
+}
+
+/* 光るアニメーション */
+@keyframes glow {
+    0% { box-shadow: 0 2px 6px rgba(0,0,0,0.25), 0 0 6px rgba(255,220,50,0.4); }
+    50% { box-shadow: 0 4px 12px rgba(0,0,0,0.25), 0 0 12px rgba(255,220,50,0.7); }
+    100% { box-shadow: 0 2px 6px rgba(0,0,0,0.25), 0 0 6px rgba(255,220,50,0.5); }
+}

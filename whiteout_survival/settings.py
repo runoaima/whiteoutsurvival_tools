@@ -151,11 +151,7 @@ LOGIN_URL = 'login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # 本番環境用のメール設定（例: Gmail SMTPサーバー）
-import os
-from dotenv import load_dotenv
 
-# .env ファイルを読み込む
-load_dotenv()
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"

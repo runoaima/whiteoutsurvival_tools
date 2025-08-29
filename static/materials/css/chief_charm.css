@@ -1,5 +1,3 @@
-/* リニューアル後のCSS */
-
 /* 全体のスタイル */
 main {
     flex-grow: 1;
@@ -8,19 +6,19 @@ main {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    width: 100%; /* 幅を画面いっぱいに広げる */
-    max-width: 1200px; /* 最大幅を設定してPCで見やすくする */
+    width: 100%;
+    max-width: 1200px;
     box-sizing: border-box;
-    margin-top: 180px; /* ヘッダーの高さに合わせて調整 */
+    margin-top: 180px;
 }
 
 /* 警告メッセージのスタイル */
 .warn {
-    color: #dc3545; /* 警告に使う赤色 */
+    color: #dc3545;
     margin-left: 10px;
     font-size: 0.9em;
     font-weight: bold;
-    animation: pulse 1.5s infinite; /* アニメーションを追加 */
+    animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
@@ -49,14 +47,14 @@ select:focus, table:focus-within {
     border-collapse: separate;
     border-spacing: 0;
     width: 100%;
-    overflow: hidden; /* 角丸を適用するために必要 */
+    overflow: hidden;
     border-radius: 12px;
 }
 
 /* テーブルを囲むためのコンテナスタイル */
 .table-container {
-    overflow-x: auto; /* コンテンツがはみ出た場合に水平スクロールを有効にする */
-    -webkit-overflow-scrolling: touch; /* iOSでのスムーズなスクロールを可能に */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* スクロールバーを非表示にする（任意） */
@@ -64,8 +62,8 @@ select:focus, table:focus-within {
     display: none;
 }
 .table-container {
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .styled-table th,
@@ -76,7 +74,7 @@ select:focus, table:focus-within {
 }
 
 .styled-table th {
-    background-color: #3498db; /* 落ち着いた青色 */
+    background-color: #3498db;
     color: white;
     font-weight: 600;
     text-transform: uppercase;
@@ -84,9 +82,9 @@ select:focus, table:focus-within {
 }
 
 .styled-table tbody tr:last-child {
-    background-color: #dff0d8; /* 淡い緑色 */
+    background-color: #dff0d8;
     font-weight: bold;
-    color: #28a745; /* 強調するための濃い緑色 */
+    color: #28a745;
 }
 
 .styled-table tbody tr:last-child td {
@@ -101,14 +99,14 @@ select:focus, table:focus-within {
 
 /* スライダーのスタイル */
 .slider {
-    width: 100%;
-    height: 10px; /* スライダーの高さ調整 */
+    width: calc(100% - 70px);
+    height: 10px;
     appearance: none;
     border-radius: 5px;
     background: #e9ecef;
     outline: none;
     transition: background 0.3s ease;
-    margin-top: 10px;
+    margin: 0 5px;
 }
 
 .slider::-webkit-slider-thumb {
@@ -116,7 +114,7 @@ select:focus, table:focus-within {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #5aa1f0; /* スライダーの色を明るい青に */
+    background: #5aa1f0;
     border: none;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -137,6 +135,26 @@ select:focus, table:focus-within {
     background: #e74c3c;
 }
 
+/* 新しいボタンのスタイル */
+.level-button {
+    width: 30px;
+    height: 30px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 0 5px; /* スライダーとの間に少しスペースを空ける */
+}
+
+.level-button:hover {
+    background-color: #2980b9;
+}
+
 .slider-label {
     display: inline-block;
     width: 50px;
@@ -144,7 +162,7 @@ select:focus, table:focus-within {
     font-size: 1em;
     transition: all 0.2s ease-in-out;
     text-align: right;
-    color: #3498db; /* ラベルの色をスライダーに合わせる */
+    color: #3498db;
 }
 
 /* アイコンのアニメーション */
@@ -160,12 +178,14 @@ select:focus, table:focus-within {
 .equipment-title {
     font-size: 1.2em;
     font-weight: bold;
-    color: #3498db; /* 青色で強調 */
+    color: #3498db;
 }
 
 .slider-label-container {
-    color: #555; /* 落ち着いた色 */
+    color: #555;
     font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
 }
 /* hero_gear.css */
 
@@ -173,13 +193,13 @@ select:focus, table:focus-within {
 .tool-title {
     margin: 5px 0;
     font-size: 1.5em;
-    color: #3498db; /* 落ち着いた青色 */
+    color: #3498db;
 }
 
 .warning-message {
     margin: 5px 0;
     font-size: 1em;
-    color: #e74c3c; /* 警告に使う赤色 */
+    color: #e74c3c;
     font-weight: bold;
 }
 
@@ -189,13 +209,13 @@ select:focus, table:focus-within {
     align-items: center;
     gap: 10px;
     margin-top: 20px;
-    justify-content: center; /* ボタンを中央に配置 */
+    justify-content: center;
 }
 
 .add-button, .sub-button {
     padding: 10px 20px;
     border: none;
-    border-radius: 25px; /* 丸みを帯びたデザイン */
+    border-radius: 25px;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -204,7 +224,7 @@ select:focus, table:focus-within {
 }
 
 .add-button {
-    background-color: #2ecc71; /* 緑色 */
+    background-color: #2ecc71;
 }
 
 .add-button:hover {
@@ -214,7 +234,7 @@ select:focus, table:focus-within {
 }
 
 .sub-button {
-    background-color: #e67e22; /* オレンジ色 */
+    background-color: #e67e22;
 }
 
 .sub-button:hover {
@@ -226,12 +246,12 @@ select:focus, table:focus-within {
 /* 関連リンクをボタン風に */
 .related-tools a {
     display: block;
-    width: 200px; /* ボタンの幅を固定 */
+    width: 200px;
     margin: 5px 0;
     padding: 10px 20px;
     font-size: 1.2em;
     color: white;
-    background-color: #f1c40f; /* リンクの背景色 */
+    background-color: #f1c40f;
     text-align: center;
     text-decoration: none;
     border-radius: 25px;

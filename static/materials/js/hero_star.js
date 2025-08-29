@@ -47,36 +47,72 @@ let count = 0;
 function addOne() {
     count++;
     document.getElementById('counter').textContent = count;
+    const currentCount = count; // count の値をキャプチャ
 
     const div = document.createElement("div");
     div.innerHTML = `
-      <strong class="equipment-title">英雄${count}</strong><br><br>
+        <strong class="equipment-title">英雄${currentCount}</strong><br><br>
 
-      <label>現在Lv: <span id="sval${count}">0</span></label>
-      <input type="range" id="start${count}" min="0" max="30" value="0" step="1" class="slider blue">
-      <div id="starsCurrent${count}" class="stars-display"></div>
+        <label>現在Lv: <span id="sval${currentCount}">0</span></label>
+        <button type="button" class="level-button plus" data-target="start${currentCount}">+</button>
+        <button type="button" class="level-button minus" data-target="start${currentCount}">-</button>
+        <input type="range" id="start${currentCount}" min="0" max="30" value="0" step="1" class="slider blue">
+        <div id="starsCurrent${currentCount}" class="stars-display"></div>
 
-      <label>希望Lv: <span id="eval${count}">30</span></label>
-      <input type="range" id="end${count}" min="0" max="30" value="30" step="1" class="slider red">
-      <div id="starsTarget${count}" class="stars-display"></div>
+        <label>希望Lv: <span id="eval${currentCount}">30</span></label>
+        <button type="button" class="level-button plus" data-target="end${currentCount}">+</button>
+        <button type="button" class="level-button minus" data-target="end${currentCount}">-</button>
+        <input type="range" id="end${currentCount}" min="0" max="30" value="30" step="1" class="slider red">
+        <div id="starsTarget${currentCount}" class="stars-display"></div>
     `;
     rankGroups.appendChild(div);
 
-    const startSlider = document.getElementById(`start${count}`);
-    const endSlider = document.getElementById(`end${count}`);
-    const starDivCurrent = document.getElementById(`starsCurrent${count}`);
-    const starDivTarget = document.getElementById(`starsTarget${count}`);
+    const startSlider = document.getElementById(`start${currentCount}`);
+    const endSlider = document.getElementById(`end${currentCount}`);
+    const starDivCurrent = document.getElementById(`starsCurrent${currentCount}`);
+    const starDivTarget = document.getElementById(`starsTarget${currentCount}`);
 
-    startSlider.addEventListener("input", function() {
-        document.getElementById(`sval${count}`).textContent = this.value;
+    // スライダーのイベントリスナー
+    startSlider.addEventListener("input", function () {
+        document.getElementById(`sval${currentCount}`).textContent = this.value;
+        if (parseInt(this.value) > parseInt(endSlider.value)) {
+            endSlider.value = this.value;
+            document.getElementById(`eval${currentCount}`).textContent = this.value;
+        }
         updateStars(this.value, starDivCurrent);
+        updateStars(endSlider.value, starDivTarget);
         updateTable();
     });
 
-    endSlider.addEventListener("input", function() {
-        document.getElementById(`eval${count}`).textContent = this.value;
+    endSlider.addEventListener("input", function () {
+        document.getElementById(`eval${currentCount}`).textContent = this.value;
+        if (parseInt(this.value) < parseInt(startSlider.value)) {
+            startSlider.value = this.value;
+            document.getElementById(`sval${currentCount}`).textContent = this.value;
+        }
+        updateStars(startSlider.value, starDivCurrent);
         updateStars(this.value, starDivTarget);
         updateTable();
+    });
+
+    // +/-ボタンのイベントリスナー
+    div.querySelectorAll('.level-button').forEach(button => {
+        button.addEventListener('click', function () {
+            const targetId = this.dataset.target;
+            const slider = document.getElementById(targetId);
+            if (slider) {
+                if (this.classList.contains('plus')) {
+                    if (parseInt(slider.value) < parseInt(slider.max)) {
+                        slider.value = parseInt(slider.value) + 1;
+                    }
+                } else if (this.classList.contains('minus')) {
+                    if (parseInt(slider.value) > parseInt(slider.min)) {
+                        slider.value = parseInt(slider.value) - 1;
+                    }
+                }
+                slider.dispatchEvent(new Event('input')); // 手動でイベントを発火させる
+            }
+        });
     });
 
     updateStars(startSlider.value, starDivCurrent);
@@ -111,16 +147,23 @@ function updateTable() {
     const totalAll = { "英雄の欠片": 0 };
 
     for (let i = 1; i <= count; i++) {
-        const from = parseInt(document.getElementById(`start${i}`).value);
-        const to = parseInt(document.getElementById(`end${i}`).value);
+        const startEl = document.getElementById(`start${i}`);
+        const endEl = document.getElementById(`end${i}`);
+
+        if (!startEl || !endEl) {
+            continue;
+        }
+
+        const from = parseInt(startEl.value);
+        const to = parseInt(endEl.value);
 
         if (from < to) {
             for (let lv = from; lv < to; lv++) {
-                if (!materialTable[lv+1]) continue;
-                materialTable[lv+1].forEach(entry => {
-                    const [name,val] = entry.split("×");
+                if (!materialTable[lv + 1]) continue;
+                materialTable[lv + 1].forEach(entry => {
+                    const [name, val] = entry.split("×");
                     const n = parseInt(val);
-                    totalsPerSet[i-1][name] += n;
+                    totalsPerSet[i - 1][name] += n;
                     totalAll[name] += n;
                 });
             }
@@ -131,8 +174,8 @@ function updateTable() {
     materialKeys.forEach(key => html += `<th>${key}</th>`);
     html += `</tr>`;
 
-    for (let i=0; i<count; i++){
-        html += `<tr><td>英雄${i+1}</td>`;
+    for (let i = 0; i < count; i++) {
+        html += `<tr><td>英雄${i + 1}</td>`;
         materialKeys.forEach(key => html += `<td>${totalsPerSet[i][key]}</td>`);
         html += `</tr>`;
     }
@@ -143,3 +186,6 @@ function updateTable() {
 
     resultDiv.innerHTML = html;
 }
+
+// 初期表示
+updateTable();

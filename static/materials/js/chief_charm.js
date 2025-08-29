@@ -39,13 +39,15 @@ function addOne() {
     document.getElementById('counter').textContent = count;
 
     const div = document.createElement("div");
-    // インラインスタイルを削除し、クラス名に変更
+    // IDには`count`変数を使用
     div.innerHTML = `
         <strong class="equipment-title">宝石${count}</strong><br><br>
 
         <label class="slider-label-container">現在Lv:
             <span id="sval${count}" class="slider-label">0</span>
         </label>
+        <button type="button" class="level-button plus" data-target="start${count}">+</button>
+        <button type="button" class="level-button minus" data-target="start${count}">-</button>
         <input type="range" id="start${count}" min="0" max="16" value="0" step="1" class="slider blue">
 
         <br><br>
@@ -53,21 +55,58 @@ function addOne() {
         <label class="slider-label-container">希望Lv:
             <span id="eval${count}" class="slider-label">16</span>
         </label>
+        <button type="button" class="level-button plus" data-target="end${count}">+</button>
+        <button type="button" class="level-button minus" data-target="end${count}">-</button>
         <input type="range" id="end${count}" min="0" max="16" value="16" step="1" class="slider red">
-
     `;
     rankGroups.appendChild(div);
 
     const startSlider = document.getElementById(`start${count}`);
     const endSlider = document.getElementById(`end${count}`);
+    let currentCount = count;
 
     startSlider.addEventListener("input", function() {
-        updateLabel(this.value, `sval${count}`);
+        updateLabel(this.value, `sval${currentCount}`);
+        if (parseInt(this.value) > parseInt(endSlider.value)) {
+            endSlider.value = this.value;
+            updateLabel(this.value, `eval${currentCount}`);
+        }
         updateTable();
     });
+
     endSlider.addEventListener("input", function() {
-        updateLabel(this.value, `eval${count}`);
+        updateLabel(this.value, `eval${currentCount}`);
+        if (parseInt(this.value) < parseInt(startSlider.value)) {
+            startSlider.value = this.value;
+            updateLabel(this.value, `sval${currentCount}`);
+        }
         updateTable();
+    });
+
+    // ここから追加分
+    const minusButtons = div.querySelectorAll('.level-button.minus');
+    const plusButtons = div.querySelectorAll('.level-button.plus');
+
+    minusButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetId = this.dataset.target;
+            const slider = document.getElementById(targetId);
+            if (slider && parseInt(slider.value) > parseInt(slider.min)) {
+                slider.value = parseInt(slider.value) - 1;
+                slider.dispatchEvent(new Event('input')); // スライダーの値を更新してinputイベントを発火
+            }
+        });
+    });
+
+    plusButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetId = this.dataset.target;
+            const slider = document.getElementById(targetId);
+            if (slider && parseInt(slider.value) < parseInt(slider.max)) {
+                slider.value = parseInt(slider.value) + 1;
+                slider.dispatchEvent(new Event('input')); // スライダーの値を更新してinputイベントを発火
+            }
+        });
     });
 
     updateTable();
@@ -85,17 +124,18 @@ function updateLabel(val, spanId) {
 
 function subOne() {
     if (count > 0) {
-        count -= 1;
-        document.getElementById('counter').textContent = count;
         const lastChild = rankGroups.lastElementChild;
         if (lastChild) {
             rankGroups.removeChild(lastChild);
         }
+        count -= 1;
+        document.getElementById('counter').textContent = count;
         updateTable();
     }
 }
 
 function updateTable() {
+    // ... updateTable() のコードは省略、変更なし ...
     const totalsPerSet = Array(count).fill(null).map(() => {
         return { "追加ステータス": 0, "ハンドブック": 0, "宝石図面": 0, "宝石秘典": 0 };
     });
@@ -105,13 +145,17 @@ function updateTable() {
         const startEl = document.getElementById(`start${i}`);
         const endEl = document.getElementById(`end${i}`);
 
+        if (!startEl || !endEl) {
+            continue;
+        }
+
         const from = parseInt(startEl.value);
         const to = parseInt(endEl.value);
 
         if (from != to && from < to) {
             for (let lv = from; lv < to; lv++) {
-                if (!materialTable[lv+1]) continue;
-                materialTable[lv+1].forEach(entry => {
+                if (!materialTable[lv + 1]) continue;
+                materialTable[lv + 1].forEach(entry => {
                     const [name, val] = entry.split("×");
                     const n = parseInt(val);
                     totalsPerSet[i - 1][name] += n;
@@ -119,7 +163,6 @@ function updateTable() {
                 });
             }
         }
-
     }
 
     let html = `<table class="styled-table"><tr><th>セット</th>`;

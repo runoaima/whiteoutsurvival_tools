@@ -247,35 +247,37 @@ function addOne() {
     document.getElementById('counter').textContent = count;
 
     const div = document.createElement("div");
-    // インラインスタイルを削除し、クラス名に変更
+    // 省略：追加したHTMLを挿入
     div.innerHTML = `
         <strong class="equipment-title">装備${count}</strong><br><br>
-
         <label class="slider-label-container">現在Lv:
             <span id="sval${count}" class="slider-label">0</span>
         </label>
+        <button type="button" class="level-button plus" data-target="start${count}">+</button>
+        <button type="button" class="level-button minus" data-target="start${count}">-</button>
         <input type="range" id="start${count}" min="0" max="200" value="0" step="1" class="slider blue">
-
         <br><br>
-
         <label class="slider-label-container">希望Lv:
             <span id="eval${count}" class="slider-label">+100</span>
         </label>
+        <button type="button" class="level-button plus" data-target="end${count}">+</button>
+        <button type="button" class="level-button minus" data-target="end${count}">-</button>
         <input type="range" id="end${count}" min="0" max="200" value="200" step="1" class="slider red">
-
         <br><br>
-
         <label class="slider-label-container">製錬現在Lv:
             <span id="newvalStart${count}" class="slider-label">0</span>
         </label>
+        <button type="button" class="level-button plus" data-target="newsliderStart${count}">+</button>
+        <button type="button" class="level-button minus" data-target="newsliderStart${count}">-</button>
         <input type="range" id="newsliderStart${count}" min="0" max="20" value="0" step="1" class="slider">
-
         <br><br>
-        
         <label class="slider-label-container">製錬希望Lv:
             <span id="newvalEnd${count}" class="slider-label">20</span>
         </label>
+        <button type="button" class="level-button plus" data-target="newsliderEnd${count}">+</button>
+        <button type="button" class="level-button minus" data-target="newsliderEnd${count}">-</button>
         <input type="range" id="newsliderEnd${count}" min="0" max="20" value="20" step="1" class="slider">
+        
     `;
     rankGroups.appendChild(div);
 
@@ -284,25 +286,54 @@ function addOne() {
     const newSliderStart = document.getElementById(`newsliderStart${count}`);
     const newSliderEnd = document.getElementById(`newsliderEnd${count}`);
 
+    // ここで count の値をローカル変数に保存
+    let currentCount = count;
+
     startSlider.addEventListener("input", function () {
-        updateLabel(this.value, `sval${count}`);
+        updateLabel(this.value, `sval${currentCount}`);
         updateTable();
     });
     endSlider.addEventListener("input", function () {
-        updateLabel(this.value, `eval${count}`);
+        updateLabel(this.value, `eval${currentCount}`);
         updateTable();
     });
     newSliderStart.addEventListener("input", function () {
-        updateLabel(this.value, `newvalStart${count}`);
+        updateLabel(this.value, `newvalStart${currentCount}`);
         updateTable();
     });
     newSliderEnd.addEventListener("input", function () {
-        updateLabel(this.value, `newvalEnd${count}`);
+        updateLabel(this.value, `newvalEnd${currentCount}`);
         updateTable();
+    });
+
+    const minusButtons = div.querySelectorAll('.level-button.minus');
+    const plusButtons = div.querySelectorAll('.level-button.plus');
+
+    minusButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const targetId = this.dataset.target;
+            const slider = document.getElementById(targetId);
+            if (slider && parseInt(slider.value) > parseInt(slider.min)) {
+                slider.value = parseInt(slider.value) - 1;
+                slider.dispatchEvent(new Event('input')); // スライダーの値を更新してinputイベントを発火
+            }
+        });
+    });
+
+    plusButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const targetId = this.dataset.target;
+            const slider = document.getElementById(targetId);
+            if (slider && parseInt(slider.value) < parseInt(slider.max)) {
+                slider.value = parseInt(slider.value) + 1;
+                slider.dispatchEvent(new Event('input')); // スライダーの値を更新してinputイベントを発火
+            }
+        });
     });
 
     updateTable();
 }
+
 
 function updateLabel(val, spanId) {
     const num = parseInt(val);
@@ -316,12 +347,12 @@ function updateLabel(val, spanId) {
 
 function subOne() {
     if (count > 0) {
-        count -= 1;
-        document.getElementById('counter').textContent = count;
         const lastChild = rankGroups.lastElementChild;
         if (lastChild) {
             rankGroups.removeChild(lastChild);
         }
+        count -= 1;
+        document.getElementById('counter').textContent = count;
         updateTable();
     }
 }
@@ -335,11 +366,17 @@ function updateTable() {
     for (let i = 1; i <= count; i++) {
         const startEl = document.getElementById(`start${i}`);
         const endEl = document.getElementById(`end${i}`);
-        const newStart = parseInt(document.getElementById(`newsliderStart${i}`).value);
-        const newEnd = parseInt(document.getElementById(`newsliderEnd${i}`).value);
+        const newStartEl = document.getElementById(`newsliderStart${i}`);
+        const newEndEl = document.getElementById(`newsliderEnd${i}`);
+
+        if (!startEl || !endEl || !newStartEl || !newEndEl) {
+            continue;
+        }
 
         const from = parseInt(startEl.value);
         const to = parseInt(endEl.value);
+        const newStart = parseInt(newStartEl.value);
+        const newEnd = parseInt(newEndEl.value);
 
         // 現在/希望レベルの計算
         if (from !== to && from < to) {
@@ -368,6 +405,7 @@ function updateTable() {
         }
     }
 
+    // ... HTML生成部分は省略 ...
     let html = `<table class="styled-table"><tr><th>セット</th>`;
     materialKeys.forEach(key => {
         html += `<th><img src="${hero_gear_materialImages[key]}" width="32"><br>${key}</th>`;

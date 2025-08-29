@@ -97,35 +97,29 @@ header nav ul {
     padding: 0;
     margin: 10px 0 0;
     display: flex;
-    gap: 10px; /* ボタン間の間隔を調整 */
+    flex-wrap: wrap; /* 追加：要素を複数行に折り返すようにする */
+    gap: 10px;
     justify-content: center;
-    white-space: nowrap; /* これが重要：改行を防ぎ、横並びを維持 */
-    overflow-x: auto; /* これが重要：コンテンツがはみ出した場合に横スクロールを有効にする */
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    white-space: normal; /* 変更：改行を許可する */
+    overflow-x: hidden; /* 変更：横スクロールを非表示にする */
 }
 
 header nav ul::-webkit-scrollbar {
     display: none;
 }
 
+/* ナビゲーションリンク */
 header nav a {
-    color: #065cfa; /* ブランドカラーに近い色に */
+    color: #065cfa;
     text-decoration: none;
     font-weight: bold;
     padding: 8px 15px;
-    
-    /* 線のスタイルを変更 */
     border: 1px solid #065cfa;
-    
-    /* 角丸を減らしてシャープに */
-    border-radius: 5px; 
-    
-    /* 影を追加して立体感を出す */
+    border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
-    /* トランジションをよりスムーズに */
     transition: all 0.4s ease;
+    flex: 1 1 auto; /* 追加：フレックスアイテムとして柔軟に幅を調整する */
+    text-align: center; /* 追加：テキストを中央揃えにする */
 }
 
 header nav a:hover {
@@ -188,6 +182,7 @@ footer p {
     }
 
     header nav ul {
-        overflow-x: visible; /* PCではスクロールを無効にする */
+        flex-wrap: nowrap; /* PCでは折り返さない */
+        overflow-x: visible;
     }
 }

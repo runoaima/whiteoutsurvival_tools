@@ -65,7 +65,7 @@ function addOne() {
     const endSlider = document.getElementById(`end${count}`);
     let currentCount = count;
 
-    startSlider.addEventListener("input", function() {
+    startSlider.addEventListener("input", function () {
         updateLabel(this.value, `sval${currentCount}`);
         if (parseInt(this.value) > parseInt(endSlider.value)) {
             endSlider.value = this.value;
@@ -74,7 +74,7 @@ function addOne() {
         updateTable();
     });
 
-    endSlider.addEventListener("input", function() {
+    endSlider.addEventListener("input", function () {
         updateLabel(this.value, `eval${currentCount}`);
         if (parseInt(this.value) < parseInt(startSlider.value)) {
             startSlider.value = this.value;
@@ -88,7 +88,7 @@ function addOne() {
     const plusButtons = div.querySelectorAll('.level-button.plus');
 
     minusButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const targetId = this.dataset.target;
             const slider = document.getElementById(targetId);
             if (slider && parseInt(slider.value) > parseInt(slider.min)) {
@@ -99,7 +99,7 @@ function addOne() {
     });
 
     plusButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const targetId = this.dataset.target;
             const slider = document.getElementById(targetId);
             if (slider && parseInt(slider.value) < parseInt(slider.max)) {
@@ -134,12 +134,109 @@ function subOne() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    // URLから復元データを読み込むロジック
+    const urlParams = new URLSearchParams(window.location.search);
+    const restoreData = urlParams.get('data');
+
+    if (restoreData) {
+        try {
+            const inputData = JSON.parse(decodeURIComponent(restoreData));
+            // 復元ロジックは addOne() 関数を呼び出す必要があります
+            // ... (この部分は後述します)
+        } catch (e) {
+            console.error('復元データの解析に失敗しました:', e);
+        }
+    }
+
+    // 保存ボタンのイベントリスナー
+    const saveButton = document.getElementById('saveButton');
+    const resultDiv = document.getElementById('result');
+    const rankGroups = document.getElementById('rankGroups');
+
+    if (saveButton) {
+        saveButton.addEventListener('click', function () {
+            const resultTitle = "領主宝石計算結果";
+            const resultHtml = resultDiv.innerHTML;
+
+            const inputData = [];
+            // スライダーからデータを取得する
+            const sliderElements = rankGroups.querySelectorAll('input[type="range"]');
+            sliderElements.forEach(slider => {
+                inputData.push({
+                    id: slider.id,
+                    value: slider.value
+                });
+            });
+
+            fetch('/accounts/save_calculation_result/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({
+                    title: resultTitle,
+                    result_html: resultHtml,
+                    input_data: inputData
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('計算結果がプロフィールに保存されました！');
+                    } else {
+                        alert('保存に失敗しました: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('通信エラーが発生しました。');
+                });
+        });
+    }
+
+    // クリアボタンのイベントリスナー (★修正箇所)
+    const clearButton = document.getElementById('clearButton');
+    if (clearButton) {
+        clearButton.addEventListener('click', function () {
+            // スライダーの数をリセット
+            while (count > 0) {
+                subOne();
+            }
+            // ページロード時に一つだけ要素を追加
+            addOne();
+        });
+    }
+
+    // CSRFトークンを取得するヘルパー関数
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // ページの初期化
+    if (!restoreData) {
+        addOne(); // 復元データがない場合、最初に1つ追加
+    }
+});
+
 function updateTable() {
-    // ... updateTable() のコードは省略、変更なし ...
     const totalsPerSet = Array(count).fill(null).map(() => {
         return { "追加ステータス": 0, "ハンドブック": 0, "宝石図面": 0, "宝石秘典": 0 };
     });
     const totalAll = { "追加ステータス": 0, "ハンドブック": 0, "宝石図面": 0, "宝石秘典": 0 };
+    let hasCalculatedMaterials = false; // ★このフラグをここに追加
 
     for (let i = 1; i <= count; i++) {
         const startEl = document.getElementById(`start${i}`);
@@ -153,6 +250,7 @@ function updateTable() {
         const to = parseInt(endEl.value);
 
         if (from != to && from < to) {
+            hasCalculatedMaterials = true; // ★計算が行われたらtrueに設定
             for (let lv = from; lv < to; lv++) {
                 if (!materialTable[lv + 1]) continue;
                 materialTable[lv + 1].forEach(entry => {
@@ -185,7 +283,14 @@ function updateTable() {
     });
     html += `</tr></table>`;
     resultDiv.innerHTML = html;
-}
 
-// 初期表示は addOne() が呼び出されると実行されるため不要
-updateTable();
+    // ボタンの表示・非表示ロジックはこれで正常に動作します
+    const saveButton = document.getElementById('saveButton');
+    if (saveButton) {
+        if (hasCalculatedMaterials) {
+            saveButton.style.display = 'block';
+        } else {
+            saveButton.style.display = 'none';
+        }
+    }
+}

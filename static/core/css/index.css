@@ -1,17 +1,20 @@
 main {
     flex-grow: 1;
-    padding: 10px;
+    padding: 0px;
     margin: 10px auto;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     width: 100%;
     box-sizing: border-box;
-    margin-top: 180px; /* ヘッダーの高さに合わせて調整 */
+    margin-top: 100px;
+    /* ヘッダーの高さに合わせて調整 */
 }
+
 h1 {
     color: darkred;
 }
+
 /* styles.css (例) */
 
 .top-page-container {
@@ -20,7 +23,7 @@ h1 {
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -34,23 +37,27 @@ h1 {
     color: #7f8c8d;
 }
 
-.tool-list, .info-list {
+.tool-list,
+.info-list {
     margin-top: 30px;
 }
 
-.tool-list h3, .info-list h3 {
+.tool-list h3,
+.info-list h3 {
     color: #3498db;
     border-bottom: 2px solid #ecf0f1;
     padding-bottom: 10px;
     display: inline-block;
 }
 
-.tool-list ul, .info-list ul {
+.tool-list ul,
+.info-list ul {
     list-style-type: none;
     padding: 0;
 }
 
-.tool-list a, .info-list a {
+.tool-list a,
+.info-list a {
     display: block;
     margin: 10px 0;
     padding: 15px;
@@ -62,6 +69,99 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-.tool-list a:hover, .info-list a:hover {
+.tool-list a:hover,
+.info-list a:hover {
     background-color: #e0e0e0;
+}
+
+/* アコーディオン全体のスタイル */
+.accordion-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* ヘッダー（タップする部分）のスタイル */
+.accordion-header {
+    padding: 15px;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    /* テキスト選択を無効化 */
+}
+
+/* タイトルのスタイル */
+.accordion-title {
+    margin: 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* 詳細コンテンツの初期状態（非表示） */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    background-color: #fff;
+    padding: 0 15px;
+    /* 非表示時はパディングをゼロにする */
+}
+
+/* .openクラスが追加された時のスタイル */
+.accordion-item.open .accordion-content {
+    max-height: 500px;
+    /* 十分な高さを設定してコンテンツを表示 */
+    padding: 15px;
+}
+
+/* アコーディオン全体のスタイル */
+.accordion-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* ヘッダー（タップする部分）のスタイル */
+.accordion-header {
+    padding: 15px;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    /* テキスト選択を無効化 */
+}
+
+/* タイトルのスタイル */
+.accordion-title {
+    margin: 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* 詳細コンテンツの初期状態（非表示） */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    background-color: #fff;
+    padding: 0 15px;
+    /* 非表示時はパディングをゼロにする */
+    border-top: 1px solid transparent;
+    /* 展開時に線が表示されるように設定 */
+}
+
+/* .openクラスが追加された時のスタイル */
+.accordion-item.open .accordion-content {
+    max-height: 500px;
+    /* 十分な高さを設定してコンテンツを表示 */
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    /* 展開時にボーダーを追加 */
 }

@@ -1,13 +1,17 @@
 /* index.css */
 
 /* ベースのスタイル（bodyなど） */
-body {
-    background-color: #f7f9fc;
-    color: #444;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
+main {
+    flex-grow: 1;
+    padding: 0px;
+    margin: 10px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
     box-sizing: border-box;
+    margin-top: 100px;
+    /* ヘッダーの高さに合わせて調整 */
 }
 
 /* ツールリストのコンテナ */
@@ -15,7 +19,7 @@ body {
     /* 中央配置を維持しつつ、左右の余白を適切に確保 */
     max-width: 1200px;
     margin: 50px auto;
-    padding: 0 20px;
+    padding: 20px 20px;
 }
 
 /* タイトル */

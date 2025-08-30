@@ -167,6 +167,35 @@ body {
     color: #fff;
 }
 
+/* 計算履歴リンクのスタイル */
+.history-link {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 20px 0;
+    text-decoration: none; /* 下線をなくす */
+    border-radius: 8px; /* 角を丸くする */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    
+    background-color: #3498db; /* ボタンの背景色（青） */
+    color: #ffffff; /* 文字色 */
+    
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.history-link:hover {
+    background-color: #2980b9; /* ホバー時の色 */
+    transform: translateY(-2px); /* 少し上に移動させる */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.history-link:active {
+    transform: translateY(0); /* クリック時のエフェクト */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 /* スマホレスポンシブ対応 */
 @media (max-width: 600px) {
     .navbar {

@@ -8,7 +8,7 @@ from .models import CustomUser, Profile
 class SignUpForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'last_name', 'email', 'password1', 'password2', 'is_corporate')
+        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2', 'is_corporate')
 
 # ユーザー情報更新フォーム
 class Userform(forms.ModelForm):

@@ -13,25 +13,26 @@
 <body>
     <header>
         <h1>
-            <li><a href="/">ホワサバツール</a></li>
+            <li><a href="/">ホワサバツール</a><a href="https://whiteoutsurvival.centurygames.com/ja/" class="logo-link">
+                    <img src="{% static 'images/base/whiteoutsurvival.jpg' %}" alt="ロゴ">
+                </a>
+            </li>
+
+
         </h1>
-        <a href="https://whiteoutsurvival.centurygames.com/ja/" class="logo-link">
-            <img src="{% static 'images/base/whiteoutsurvival.jpg' %}" alt="ロゴ">
-            <span>By WhiteOutSurvival</span>
-        </a>
+
         <nav>
             <ul>
                 <li><a href="/materials/">素材計算ツール</a></li>
                 <li><a href="/timers/">時間計算ツール</a></li>
                 <li><a href="/events/">イベント攻略</a></li>
-                <!--<li>
+                <li>
                     {% if user.is_authenticated %}
                     <a href="{% url 'profile' user.username %}">プロフィール </a>
                     {% else %}
                     <a href="{% url 'login' %}">ログイン </a>
                     {% endif %}
-                </li>-->
-                <li><a href="">ログイン </a></li>
+                </li>
             </ul>
         </nav>
     </header>

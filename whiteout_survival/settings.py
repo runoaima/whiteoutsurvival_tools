@@ -67,6 +67,12 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            
+            'builtins': [
+                'django.templatetags.i18n',
+                'django.templatetags.l10n',
+                'django.templatetags.tz',
+            ],
         },
     },
 ]
@@ -137,6 +143,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # カスタムユーザーモデルの指定
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.UsernameOrEmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # ログイン後のリダイレクト先
 LOGIN_REDIRECT_URL = '/'

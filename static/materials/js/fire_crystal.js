@@ -330,11 +330,6 @@ for (let i = 0; i < setNames.length; i++) {
     document.getElementById(`end${i}`).addEventListener("change", updateTable);
 }
 
-const input = document.getElementById("liveInput");
-const output = document.getElementById("liveOutput");
-
-
-
 // 表描画
 function updateTable() {
     const totalsPerSet = Array(setNames.length).fill(null).map(() => {
@@ -375,7 +370,7 @@ function updateTable() {
                 break;
         }
 
-        if (from != to && from < to) {
+        if (from !== to && from < to) {
             for (let lv = from; lv < to; lv++) {
                 if (!currentMaterialTable[lv]) continue;
                 currentMaterialTable[lv].forEach(entry => {
@@ -395,13 +390,7 @@ function updateTable() {
     html += `</tr></thead><tbody>`;
 
     const materialUnits = {
-        "火晶": "",
-        "製錬火晶": "",
-        "生肉": " M",
-        "木材": " M",
-        "石炭": " M",
-        "鉄鉱": " M",
-        "所要時間": " 分"
+        "火晶": "", "製錬火晶": "", "生肉": " M", "木材": " M", "石炭": " M", "鉄鉱": " M", "所要時間": " 分"
     };
 
     for (let i = 0; i < setNames.length; i++) {
@@ -414,13 +403,118 @@ function updateTable() {
 
     html += `<tr><td><strong>合計</strong></td>`;
     materialKeys.forEach(key => {
-            html += `<td><strong>${totalAll[key]}${materialUnits[key]}</strong></td>`;
+        html += `<td><strong>${totalAll[key]}${materialUnits[key]}</strong></td>`;
     });
     html += `</tr></tbody></table>`;
 
-    //const resultDiv = document.getElementById('resultDiv');
+    const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = html;
+
+    const saveButton = document.getElementById('saveButton');
+    if (totalAll.火晶 > 0 || totalAll.製錬火晶 > 0) {
+        saveButton.style.display = 'block';
+    } else {
+        saveButton.style.display = 'none';
+    }
 }
 
-// 初期表示
-updateTable();
+document.addEventListener('DOMContentLoaded', function () {
+    // URLから復元データを読み込むロジック
+    const urlParams = new URLSearchParams(window.location.search);
+    const restoreData = urlParams.get('data');
+
+    if (restoreData) {
+        try {
+            const inputData = JSON.parse(decodeURIComponent(restoreData));
+            inputData.forEach(item => {
+                const selectElement = document.getElementById(item.id);
+                if (selectElement) {
+                    selectElement.value = item.value;
+                }
+            });
+            updateTable();
+        } catch (e) {
+            console.error('復元データの解析に失敗しました:', e);
+        }
+    } else {
+        // 復元データがない場合は初期表示
+        updateTable();
+    }
+
+    // 保存ボタンのイベントリスナー
+    const saveButton = document.getElementById('saveButton');
+    const resultDiv = document.getElementById('result');
+    const rankGroups = document.getElementById('rankGroups');
+
+    if (saveButton) { // HTML要素が存在することを確認
+        saveButton.addEventListener('click', function () {
+            const resultTitle = "火晶計算結果";
+            const resultHtml = resultDiv.innerHTML;
+
+            const inputData = [];
+            const selectElements = rankGroups.querySelectorAll('select');
+            selectElements.forEach(select => {
+                inputData.push({
+                    id: select.id,
+                    value: select.value
+                });
+            });
+
+            fetch('/accounts/save_calculation_result/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({
+                    title: resultTitle,
+                    result_html: resultHtml,
+                    input_data: inputData
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('計算結果がプロフィールに保存されました！');
+                    } else {
+                        alert('保存に失敗しました: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('通信エラーが発生しました。');
+                });
+        });
+    }
+
+    // CSRFトークンを取得するヘルパー関数
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // ★クリアボタンのイベントリスナーを追加
+    const clearButton = document.getElementById('clearButton');
+    if (clearButton) {
+        clearButton.addEventListener('click', function () {
+            // すべての入力欄をクリア
+            const selectElements = document.querySelectorAll('#rankGroups select');
+            selectElements.forEach(select => {
+                select.value = "0"; // レベルを0にリセット
+            });
+
+            // テーブルを再計算して表示を更新
+            updateTable();
+        });
+    }
+});

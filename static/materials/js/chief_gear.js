@@ -96,12 +96,112 @@ for (let i = 0; i < 6; i++) {
     document.getElementById(`end${i}`).addEventListener("change", updateTable);
 }
 
-// 表描画
+document.addEventListener('DOMContentLoaded', function () {
+    // URLから復元データを読み込むロジック
+    const urlParams = new URLSearchParams(window.location.search);
+    const restoreData = urlParams.get('data');
+
+    if (restoreData) {
+        try {
+            const inputData = JSON.parse(decodeURIComponent(restoreData));
+            inputData.forEach(item => {
+                const selectElement = document.getElementById(item.id);
+                if (selectElement) {
+                    selectElement.value = item.value;
+                }
+            });
+        } catch (e) {
+            console.error('復元データの解析に失敗しました:', e);
+        }
+    }
+
+    // 保存ボタンのイベントリスナー
+    const saveButton = document.getElementById('saveButton');
+    const resultDiv = document.getElementById('result');
+    const rankGroups = document.getElementById('rankGroups');
+
+    if (saveButton) {
+        saveButton.addEventListener('click', function () {
+            const resultTitle = "領主装備計算結果";
+            const resultHtml = resultDiv.innerHTML;
+
+            const inputData = [];
+            const selectElements = rankGroups.querySelectorAll('select');
+            selectElements.forEach(select => {
+                inputData.push({
+                    id: select.id,
+                    value: select.value
+                });
+            });
+
+            fetch('/accounts/save_calculation_result/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({
+                    title: resultTitle,
+                    result_html: resultHtml,
+                    input_data: inputData
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('計算結果がプロフィールに保存されました！');
+                } else {
+                    alert('保存に失敗しました: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('通信エラーが発生しました。');
+            });
+        });
+    }
+
+    // クリアボタンのイベントリスナー
+    const clearButton = document.getElementById('clearButton');
+    if (clearButton) {
+        clearButton.addEventListener('click', function () {
+            // すべての入力欄をクリア
+            const selectElements = document.querySelectorAll('#rankGroups select');
+            selectElements.forEach(select => {
+                select.value = "0"; // レベルを0にリセット
+            });
+
+            // テーブルを再計算して表示を更新
+            updateTable();
+        });
+    }
+
+    // CSRFトークンを取得するヘルパー関数
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // ✅ restoreDataの有無にかかわらず、最後に必ず呼び出す
+    updateTable();
+});
+
 function updateTable() {
     const totalsPerSet = Array(6).fill(null).map(() => {
         return { "合金": 0, "研磨剤": 0, "設計図面": 0, "月光琥珀": 0 };
     });
     const totalAll = { "合金": 0, "研磨剤": 0, "設計図面": 0, "月光琥珀": 0 };
+    let hasCalculatedMaterials = false; // 計算が行われたかを示すフラグを追加
 
     for (let i = 0; i < 6; i++) {
         const start = parseInt(document.getElementById(`start${i}`).value);
@@ -109,7 +209,8 @@ function updateTable() {
         const from = start;
         const to = end;
 
-        if (from != to && from < to) {
+        if (from !== to && from < to) {
+            hasCalculatedMaterials = true; // 計算が行われたのでフラグをtrueに
             for (let lv = from; lv < to; lv++) {
                 if (!materialTable[lv]) continue;
                 materialTable[lv].forEach(entry => {
@@ -120,7 +221,6 @@ function updateTable() {
                 });
             }
         }
-
     }
 
     let html = `<table class="styled-table"><tr><th>セット</th>`;
@@ -143,7 +243,14 @@ function updateTable() {
     });
     html += `</tr></table>`;
     resultDiv.innerHTML = html;
-}
 
-// 初期表示
-updateTable();
+    // ★ ここに保存ボタンの表示・非表示ロジックを追加
+    const saveButton = document.getElementById('saveButton');
+    if (saveButton) { // ボタン要素が存在するか確認
+        if (hasCalculatedMaterials) {
+            saveButton.style.display = 'block'; // 計算結果があればボタンを表示
+        } else {
+            saveButton.style.display = 'none'; // 計算結果がなければボタンを非表示
+        }
+    }
+}

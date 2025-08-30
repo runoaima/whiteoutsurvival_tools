@@ -14,5 +14,8 @@ urlpatterns = [
     path('profile/<str:username>/edit/', views.edit_profile, name='edit_profile'),
     path('profile/<str:username>/delete/', views.delete_user, name='delete_user'),
     #path('activate/<uidb64>/<token>/', views.activate, name='activate'),
+    path('calculation_history/', views.calculation_history, name='calculation_history'),
+    path('save_calculation_result/', views.save_calculation_result, name='save_calculation_result'),
+    path('result/<int:result_id>/delete/', views.delete_calculation_result, name='delete_calculation_result'),
 ]
 # 

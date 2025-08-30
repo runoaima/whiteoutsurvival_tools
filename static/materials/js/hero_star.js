@@ -142,9 +142,109 @@ function updateStars(level, starDiv) {
     starDiv.innerHTML = html;
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const restoreData = urlParams.get('data');
+    const saveButton = document.getElementById('saveButton');
+    const clearButton = document.getElementById('clearButton');
+
+    if (restoreData) {
+        try {
+            const inputData = JSON.parse(decodeURIComponent(restoreData));
+            const sliderCounts = inputData.length / 2;
+            for (let i = 0; i < sliderCounts; i++) {
+                addOne();
+            }
+            inputData.forEach(item => {
+                const slider = document.getElementById(item.id);
+                if (slider) {
+                    slider.value = item.value;
+                    if (item.id.startsWith('start')) {
+                        document.getElementById(item.id.replace('start', 'sval')).textContent = item.value;
+                    } else if (item.id.startsWith('end')) {
+                        document.getElementById(item.id.replace('end', 'eval')).textContent = item.value;
+                    }
+                }
+            });
+            updateTable();
+        } catch (e) {
+            console.error('復元データの解析に失敗しました:', e);
+            addOne();
+        }
+    } else {
+        addOne();
+    }
+
+    if (saveButton) {
+        saveButton.addEventListener('click', function () {
+            const resultTitle = "英雄の星レベル計算結果";
+            const resultHtml = resultDiv.innerHTML;
+            const inputData = [];
+            const sliderElements = rankGroups.querySelectorAll('input[type="range"]');
+            sliderElements.forEach(slider => {
+                inputData.push({
+                    id: slider.id,
+                    value: slider.value
+                });
+            });
+
+            fetch('/accounts/save_calculation_result/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({
+                    title: resultTitle,
+                    result_html: resultHtml,
+                    input_data: inputData
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('計算結果がプロフィールに保存されました！');
+                } else {
+                    alert('保存に失敗しました: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('通信エラーが発生しました。');
+            });
+        });
+    }
+
+    if (clearButton) {
+        clearButton.addEventListener('click', function () {
+            while (count > 0) {
+                subOne();
+            }
+            addOne();
+            updateTable();
+        });
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+
 function updateTable() {
     const totalsPerSet = Array(count).fill(0).map(() => ({ "英雄の欠片": 0 }));
     const totalAll = { "英雄の欠片": 0 };
+    let hasCalculatedMaterials = false;
 
     for (let i = 1; i <= count; i++) {
         const startEl = document.getElementById(`start${i}`);
@@ -163,29 +263,40 @@ function updateTable() {
                 materialTable[lv + 1].forEach(entry => {
                     const [name, val] = entry.split("×");
                     const n = parseInt(val);
-                    totalsPerSet[i - 1][name] += n;
+                    if (totalsPerSet[i - 1]) {
+                        totalsPerSet[i - 1][name] += n;
+                    }
                     totalAll[name] += n;
+                    if (n > 0) hasCalculatedMaterials = true;
                 });
             }
         }
     }
 
-    let html = `<table class="styled-table"><tr><th>セット</th>`;
-    materialKeys.forEach(key => html += `<th>${key}</th>`);
+    let html = `<h3>合計必要素材</h3><table class="styled-table"><tr><th>セット</th>`;
+    materialKeys.forEach(key => html += `<th><img src="${hero_star_materialImages[key]}" width="32"><br>${key}</th>`);
     html += `</tr>`;
 
     for (let i = 0; i < count; i++) {
         html += `<tr><td>英雄${i + 1}</td>`;
-        materialKeys.forEach(key => html += `<td>${totalsPerSet[i][key]}</td>`);
+        materialKeys.forEach(key => {
+            const value = totalsPerSet[i] ? totalsPerSet[i][key] : 0;
+            html += `<td>${value}</td>`;
+        });
         html += `</tr>`;
     }
 
-    html += `<tr class="total-row"><td>合計</td>`;
-    materialKeys.forEach(key => html += `<td>${totalAll[key]}</td>`);
+    html += `<tr class="total-row"><td><strong>合計</strong></td>`;
+    materialKeys.forEach(key => html += `<td><strong>${totalAll[key]}</strong></td>`);
     html += `</tr></table>`;
-
     resultDiv.innerHTML = html;
-}
 
-// 初期表示
-updateTable();
+    const saveButton = document.getElementById('saveButton');
+    if (saveButton) {
+        if (hasCalculatedMaterials) {
+            saveButton.style.display = 'block';
+        } else {
+            saveButton.style.display = 'none';
+        }
+    }
+}

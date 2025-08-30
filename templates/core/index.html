@@ -9,6 +9,7 @@
 
 <div class="top-page-container">
     <h2 class="welcome-heading">ようこそ！</h2>
+
     <p class="intro-text">
         ここから各ツールや攻略情報にアクセスできます。
     </p>
@@ -24,20 +25,78 @@
 
     <div class="info-list">
         <h3>ログイン機能</h3>
-        <p>※今後追加予定です。</p>
         <ul>
+            <li>ログイン機能を実装しました。アカウントを作成して、計算結果を保存・管理できます。</li>
+            <a href="{% url 'signup' %}">アカウント作成はこちら</a>
+            <a href="{% url 'login' %}">ログインはこちら</a>
+            <li>計算履歴ページで過去の計算結果を一覧表示できます。</li>
+            <li>試験的な実装なのでメールアドレスは架空のものでも作成できます。</li>
+            <li>ユーザー名は変更できないのでご注意ください。</li>
+            <li>ログイン時ではユーザー名とメールアドレスどちらでもログインいただけます。</li>
         </ul>
     </div>
+
+
 
     <div class="info-list">
         <h3>バージョン履歴</h3>
         <ul>
-            <li>2025/08/30 - ログイン機能の不具合を現在調査中</li>
-            <li>2025/08/30 - 「英雄装備計算ツール」を更新 全体的に不具合を調整し、UIを改善しました。 </li>
-            <li>2025/08/29 - 「領主宝石計算ツール」「英雄ランク計算ツール」を追加</li>
-            <li>2025/08/19 - サイト公開</li>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h3 class="accordion-title">2025/08/30 - ログイン機能の更新</h3>
+                </div>
+                <div class="accordion-content">
+                    <p>2025/08/30 - ログイン機能の更新、保存機能の実装</p>
+                    <li>ログイン機能の不具合を修正</li>
+                    <li>プロフィールページに計算結果の保存・表示機能を実装 </li>
+                    <li>計算結果を保存する際に、入力データも一緒に保存するように変更</li>
+                    <li>プロフィールページから保存した計算結果の復元の不具合を確認</li>
+                    <li>現在調査中のため復元機能を一時的に無効化</li>
+                    <li>UIを改善</li>
+                    <li>その他細かい不具合を修正</li>
+                    <li>サイト全体のパフォーマンスを改善</li>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h3 class="accordion-title">2025/08/30 - ログイン機能の不具合を現在調査中</h3>
+                </div>
+                <div class="accordion-content">
+                    <p>2025/08/30 - ログイン機能の不具合を現在調査中</p>
+                    <li>ログイン機能の不具合を確認</li>
+                    <li>現在調査中のためログイン機能全般を使用不可
+                    </li>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h3 class="accordion-title">2025/08/29 - 「領主宝石計算ツール」「英雄ランク計算ツール」を追加</h3>
+                </div>
+                <div class="accordion-content">
+                    <p>2025/08/29 - 「領主宝石計算ツール」「英雄ランク計算ツール」を追加/p>
+                        <li>資材計算ツールから「領主宝石ツール」「英雄ランク計算ツール」を追加 </li>
+                        <li>また「英雄装備計算ツール」の製錬lvのスライダーが一つしか表示されない不具合を修正</li>
+                        <li>全体的に不具合を調整し、UIを改善</li>
+                        <li>ログイン機能を実装 </li>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h3 class="accordion-title">2025/08/19 - サイト公開</h3>
+                </div>
+                <div class="accordion-content">
+                    <p>2025/08/19 - サイト公開</p>
+                    <li>本サイト公開</li>
+                    <li>初期要素として資材計算ツールから「領主装備計算ツール」「英雄装備計算ツール」
+                        「火晶計算ツール」を、時間計算ツールから「集結時間タイマー」を実装
+                    </li>
+                </div>
+            </div>
+
         </ul>
     </div>
+
     <div class="info-list">
         <h3>その他の情報</h3>
         <ul>
@@ -65,8 +124,8 @@
             <li>著作権は各権利者に帰属します。画像や情報の無断転載はご遠慮ください。</li>
         </ul>
     </div>
-
 </div>
+
 
 <script src="{% static 'core/js/index.js' %}"></script>
 

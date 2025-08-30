@@ -7,10 +7,10 @@ main {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    width: 90%; /* 幅を画面いっぱいに広げる */
-    max-width: 1200px; /* 最大幅を設定してPCで見やすくする */
+    width: 100%;
     box-sizing: border-box;
-    margin-top: 100px; /* ヘッダーの高さに合わせて調整 */
+    margin-top: 100px;
+    /* ヘッダーの高さに合わせて調整 */
 }
 
 /* 見出し */

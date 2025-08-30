@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'accounts/css/calculation_history.css' %}">
+<h1 style="margin: 5px 0; font-size: 1.5em; color: #01eb01;">ツール計算記録</h1>
+<p>ここでは、これまでに保存した素材計算ツールの計算結果を一覧で確認できます。</p>
+
+{% if results %}
+    <ul class="calculation-list">
+    {% for result in results %}
+        <li>
+            <h3>{{ result.title }}</h3>
+            <p>保存日時: {{ result.created_at|date:"Y年m月d日 H:i" }}</p>
+            <div class="result-display">
+                {{ result.result_html|safe }}
+            </div>
+            <a href="{% url 'chief_gear' %}?data={{ result.input_data|urlencode }}" class="btn btn-restore">
+                この計算を再開
+            </a>
+            <form action="{% url 'delete_calculation_result' result.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-delete" onclick="return confirm('本当にこの計算結果を削除しますか？');">
+                    削除
+                </button>
+            </form>
+            <hr>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>まだ保存された計算結果はありません。</p>
+{% endif %}
+
+<script src="{% static 'accounts/js/calculation_history.js' %}"></script>
+{% endblock %}

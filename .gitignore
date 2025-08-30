@@ -1,0 +1,16 @@
+# SQLite database
+db.sqlite3
+
+# Django migration cache
+*.pyc
+__pycache__/
+venv/
+.venv/
+# Static and media files
+/staticfiles/
+/media/
+
+# IDE/editor settings
+.idea/
+.vscode/
+

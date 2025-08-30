@@ -10,7 +10,7 @@ window.addEventListener('scroll', () => {
         header.classList.add('header-hidden');
     } else {
         // 上にスクロールしている時は表示
-        header.classList.remove('header-hidden');
+        header.classList.add('header-hidden');
     }
     lastScrollY = window.scrollY;
 });

@@ -17,6 +17,10 @@
 
 <div id="result" class="table-container"></div>
 
+<button id="clearButton" class="btn btn-clear">入力をクリア</button>
+
+<button id="saveButton" class="btn btn-save" style="display:none;">計算結果を保存</button>
+
 <div class="related-tools">
     <h2 class="related-title">関連ツール</h2>
     <a href="{% url 'fire_crystal' %}" class="related-link">火晶計算ツール</a>
@@ -25,10 +29,9 @@
     <a href="{% url 'chief_charm' %}" class="related-link">領主宝石計算ツール</a>
 </div>
 
-<div id="hero_star_image_data" data-essence-stones-url="{% static 'images/materials/hero_gear/essence_stones.png' %}"
-    data-mithril-url="{% static 'images/materials/hero_gear/mithril.png' %}"
-    data-enhancement-xp-url="{% static 'images/materials/hero_gear/enhancement_xp.png' %}"
-    data-mithic-gear-url="{% static 'images/materials/hero_gear/mithic_gear.png' %}"></div>
+<div id="hero_star_image_data" 
+    data-hero-star-url="{% static 'images/materials/hero_star/hero_shard.png' %}"
+    ></div>
 
 <script src="{% static 'materials/js/hero_star.js' %}"></script>
 

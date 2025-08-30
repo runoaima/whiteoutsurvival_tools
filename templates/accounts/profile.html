@@ -29,6 +29,7 @@
         {% if user.is_authenticated and user.username == profile_user.username %}
         <a href="{% url 'edit_profile' profile_user.username %}" class="edit-btn">プロフィール編集</a>
         {% endif %}
+        
     </section>
 
     <!-- 自己紹介・場所・誕生日 -->
@@ -38,6 +39,7 @@
         <p>誕生日: {{ profile_user.profile.birth_date|default:"未設定" }}</p>
     </section>
 
+    <a href="{% url 'calculation_history' %}" class="history-link">計算履歴を見る</a>
     <!-- ログアウト -->
     {% if user.is_authenticated and user.username == profile_user.username %}
     <form action="{% url 'logout' %}" method="post" class="logout-form">

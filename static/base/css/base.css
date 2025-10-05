@@ -1,214 +1,189 @@
-/* base.css */
-
-main {
-    flex-grow: 1;
-    padding: 0px;
-    margin: 10px auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 100px;
-    /* ヘッダーの高さに合わせて調整 */
-}
-/* 全体のスタイル */
-body {
-    background-color: #f7f9fc;
-    color: #444;
-    font-family: 'Arial', sans-serif;
+/* ==========================
+   全体リセット & ベース
+========================== */
+* {
     margin: 0;
     padding: 0;
-    /* paddingを0に設定 */
     box-sizing: border-box;
 }
 
-/* ヘッダー */
-header {
-    background-color: #ffffff;
-    padding: 15px 20px;
-    /* パディングを小さくしてコンパクトに */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #ffffff; /* 背景を白に */
+    color: #333;
+    line-height: 1.6;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    border-bottom: 1px solid #e0e0e0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    transition: transform 0.3s ease-in-out;
-    transform: translateY(0);
-
-}
-
-
-
-header h1 {
-    font-size: 2.5em;
-    font-weight: bold;
+    min-height: 100vh;
+    padding: 0; /* 余白なし */
     margin: 0;
+    width: 100%;
+    max-width: 100%; /* 横幅いっぱい */
+    text-align: center;
+}
 
-    /* 落ち着いたダークグレー */
-    color: #333;
-
-    /* 影を追加 */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+/* ==========================
+   メイン
+========================== */
+main {
+    flex-grow: 1;
+    padding: 0; /* 余白なし */
+    margin: 0;  /* 余白なし */
+    background-color: #ffffff; /* 白背景 */
+    border-radius: 0; /* 角丸なしで全面白 */
+    box-shadow: none; /* シャドウなし */
+    width: 100%;
+    max-width: 100%; /* 横幅いっぱい */
+    box-sizing: border-box;
 }
 
 
-/* ナビゲーションメニューのリンク（<li><a>）のスタイルをリセット */
-header h1 li {
-    list-style: none;
-    /* リストの点を消す */
+
+/* ==========================
+   ヘッダー
+========================== */
+header {
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    bottom: auto;
+}
+
+/* header-top はスクロールで隠す */
+.header-top {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 10px;
+    background: #fff;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* 隠す用クラス */
+.header-top.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+
+/* サイトタイトル */
+header h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #222;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 header h1 a {
     text-decoration: none;
-    /* 下線を消す */
-    color: inherit;
-    /* 親要素（h1）の色を継承 */
+    color: #222;
+    transition: color 0.3s ease;
 }
 
-/* ロゴのスタイル */
-.logo-link {
-    display: flex;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    align-items: center;
-    text-decoration: none;
+header h1 a:hover {
     color: #065cfa;
-    font-size: 1em;
-    /* フォントサイズを小さく */
-    font-weight: bold;
-    margin: 5px 0;
+}
+
+/* ロゴ */
+.logo-link {
+    margin-left: auto;
+    /* これでロゴだけ右端に寄る */
+    display: flex;
+    /* 安全のため */
+    align-items: center;
 }
 
 .logo-link img {
     height: 30px;
-    /* ロゴの高さを調整 */
-    width: auto;
-    vertical-align: middle;
-    margin-right: 10px;
+    width: 30px;
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(6, 92, 250, 0.5);
-}
-
-/* レスポンシブデザインの調整 */
-@media (min-width: 768px) {
-    header h1 {
-        font-size: 3em;
-        /* デスクトップでは少し大きく */
-    }
-}
-
-/* スクロール時にヘッダーを隠す */
-.header-hidden {
-    transform: translateY(-100%);
-}
-
-header h1 {
-    font-size: 1.5em;
-    /* フォントサイズを小さく */
-    color: #333;
-    margin: 0;
-    font-weight: bold;
+    box-shadow: 0 0 8px rgba(6, 92, 250, 0.4);
 }
 
 
-/* ナビゲーションメニュー */
-header nav ul {
+
+/* navbar は常に画面上に固定 */
+.navbar {
+    background: #fff;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;           /* ここが重要 */
+    z-index: 1000;
+}
+
+
+/* header-top が隠れた時に navbar がくっつくように */
+.header-top.hidden + .navbar {
+    top: 0; /* navbar は常に top:0 */
+}
+
+.navbar-list {
     list-style: none;
-    padding: 0;
-    margin: 10px 0 0;
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px; /* ギャップをさらに小さく調整 */
     justify-content: center;
-    white-space: normal;
-    overflow-x: hidden;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 20px;
+    white-space: nowrap;
+    /* 折り返し防止 */
 }
 
-header nav ul::-webkit-scrollbar {
-    display: none;
-}
-
-/* ナビゲーションリンク */
-header nav a {
-    color: #065cfa;
+/* ナビリンク */
+.navbar-item a {
     text-decoration: none;
-    font-weight: bold;
-    padding: 4px 8px; /* ★ここを修正★: パディングをさらに小さく */
-    font-size: 0.9em; /* ★ここを修正★: フォントサイズを小さく */
-    border: 1px solid #065cfa;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s ease;
-    flex: 0 0 auto;
-    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #333;
+    padding: 6px 10px;
+    border-radius: 16px;
+    transition: all 0.2s ease;
 }
 
-header nav a:hover {
-    background: linear-gradient(45deg, #065cfa, #3a91ff);
-    color: #fff;
-    box-shadow: 0 4px 10px rgba(6, 92, 250, 0.4);
-    transform: none;
-    border: 1px solid #065cfa;
+.navbar-item a:hover {
+    background: #eaf4ff;
+    color: #065cfa;
 }
 
-/* メインコンテンツ */
-main {
-    flex-grow: 1;
-    padding: 10px;
-    margin: 10px auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 180px;
-    /* ヘッダーの高さに合わせて調整 */
-}
 
-/* フッター */
+/* ==========================
+   フッター
+========================== */
 footer {
-    background-color: #ffffff;
-    color: #888;
     text-align: center;
-    padding: 15px;
-    border-top: 1px solid #e0e0e0;
-    margin-top: auto;
-    width: 100%;
+    padding: 20px;
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 40px;
 }
 
-footer p {
-    margin: 0;
-    font-size: 0.9em;
-}
-
-/* レスポンシブデザイン */
-/* レスポンシブデザインの調整 */
-@media (min-width: 768px) {
-    header {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        transform: translateY(0);
+/* ==========================
+   レスポンシブ
+========================== */
+@media (max-width: 768px) {
+    .header-top {
+        padding: 8px 15px;
     }
 
-    header h1 {
-        font-size: 2em;
+    .header-top h1 {
+        font-size: 1.2rem;
     }
 
-    header nav {
-        margin-top: 0;
+    .navbar-list {
+        gap: 15px;
+        padding: 8px 15px;
     }
 
-    header nav ul {
-        flex-wrap: nowrap;
-        /* PCでは折り返さない */
-        overflow-x: visible;
+    .navbar-item a {
+        font-size: 0.6rem;
+        padding: 5px 8px;
+    }
+
+    main {
+        margin: 15px;
+        padding: 15px;
     }
 }

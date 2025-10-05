@@ -1,17 +1,31 @@
-/* リニューアル後のCSS */
+/* ========================== 全体リセット & ベース ========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* 全体のスタイル */
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* 横スクロール防止 */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #fff;  /* 全体背景白 */
+    color: #333;
+    line-height: 1.6;
+}
+
+
+
+/* ========================== メイン ========================== */
 main {
     flex-grow: 1;
-    padding: 10px;
-    margin: 10px auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    width: 100%; /* 幅を画面いっぱいに広げる */
-    max-width: 1200px; /* 最大幅を設定してPCで見やすくする */
+    width: 100%;
+    max-width: 100%;
+    margin: 20px auto 0 auto; /* 上だけ20px余白 */
+    padding: 0;
+    background: #fff; /* 全体白背景 */
     box-sizing: border-box;
-    margin-top: 100px; /* ヘッダーの高さに合わせて調整 */
 }
 
 /* 画像のスタイル */

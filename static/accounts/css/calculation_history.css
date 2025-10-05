@@ -1,21 +1,43 @@
-/* リニューアル後のCSS */
+/* ========================== 全体リセット & ベース ========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* 全体のスタイル */
-body {
-    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    background-color: #ffffff; /* 超暗い背景色 */
-    color: #e0e0e0; /* 明るい文字色 */
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* 横スクロール防止 */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #fff;  /* 全体背景白 */
+    color: #333;
     line-height: 1.6;
+}
+
+
+
+/* ========================== メイン ========================== */
+main {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 100%;
+    margin: 20px auto 0 auto; /* 上だけ20px余白 */
+    padding: 0;
+    background: #fff; /* 全体白背景 */
+    box-sizing: border-box;
 }
 
 /* コンテンツ全体を中央に配置し、幅を制限します */
 .container {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 25px;
-    background-color: #ffffff; /* コンテンツの背景色 */
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    max-width: 100%;      /* 画面幅に合わせる */
+    margin: 0;            /* 左右の余白をなくす */
+    padding: 25px;        /* 内側余白は残す */
+    background: #fff;
+    border-radius: 0;     /* 角丸をなくす場合 */
+    box-shadow: none;     /* シャドウをなくす場合 */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* タイトルと段落のスタイル */

@@ -1,46 +1,80 @@
-/* index.css */
+/* ========================== 全体リセット & ベース ========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* ベースのスタイル（bodyなど） */
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* 横スクロール防止 */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #fff;  /* 全体背景白 */
+    color: #333;
+    line-height: 1.6;
+}
+
+
+
+/* ========================== メイン ========================== */
 main {
     flex-grow: 1;
-    padding: 0px;
-    margin: 10px auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     width: 100%;
+    max-width: 100%;
+    margin: 20px auto 0 auto; /* 上だけ20px余白 */
+    padding: 0;
+    background: #fff; /* 全体白背景 */
     box-sizing: border-box;
-    margin-top: 100px;
-    /* ヘッダーの高さに合わせて調整 */
 }
 
-/* ツールリストのコンテナ */
+/* ========================== トップページコンテナ ========================== */
+.top-page-container,
 .tool-list-container {
-    /* 中央配置を維持しつつ、左右の余白を適切に確保 */
-    max-width: 1200px;
-    margin: 50px auto;
-    padding: 20px 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: none;
+    text-align: center;
 }
 
-/* タイトル */
+.welcome-heading {
+    font-size: 2em;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 12px;
+}
+
+.intro-text {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* ========================== ツールリスト ========================== */
 .tool-list-title {
-    font-size: 2.5em;
-    font-weight: bold; /* フォントを太くする */
+    font-size: 1.8em;
+    font-weight: bold;
     color: #333;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 0 5px rgba(0,0,0,0.1);
     margin-bottom: 40px;
     text-align: center;
 }
 
-/* ツールリンクのコンテナ */
 .tool-links {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    align-items: center;
+    width: 100%;
 }
 
-/* 各ツールカードのデザイン */
 .tool-card {
+    width: 100%;
+    max-width: 500px;
     background-color: #ffffff;
     border-radius: 12px;
     padding: 25px;
@@ -48,14 +82,14 @@ main {
     color: #444;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid #e0e0e0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     cursor: pointer;
     text-align: left;
 }
 
 .tool-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
 
 .card-title {
@@ -88,7 +122,7 @@ main {
     font-size: 1.5em;
     font-weight: bold;
     color: #c0392b;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255,255,255,0.8);
     padding: 10px 20px;
     border-radius: 8px;
     border: 2px solid #c0392b;
@@ -99,14 +133,80 @@ main {
     box-shadow: none;
 }
 
-/* レスポンシブデザイン */
+/* ========================== アコーディオン ========================== */
+.accordion-item {
+    border: 1px solid #e0e6f0;
+    margin-bottom: 14px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.accordion-item:hover {
+    box-shadow: 0 5px 14px rgba(0,0,0,0.08);
+}
+
+.accordion-header {
+    padding: 16px 22px;
+    background: #f5f7fa;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    font-weight: bold;
+    color: #2c3e50;
+    transition: background 0.3s ease;
+}
+
+.accordion-header:hover {
+    background: #eaf2ff;
+}
+
+.accordion-title {
+    margin: 0;
+    font-size: 1em;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out;
+    background: #fff;
+    padding: 0 22px;
+    border-top: 1px solid transparent;
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.6;
+}
+
+.accordion-item.open .accordion-content {
+    max-height: 600px;
+    padding: 18px 22px;
+    border-top: 1px solid #e0e6f0;
+}
+
+/* ========================== レスポンシブ ========================== */
+@media (max-width: 768px) {
+    .welcome-heading { font-size: 1.8em; }
+    .intro-text { font-size: 1em; }
+    .accordion-header { padding: 14px 16px; font-size: 0.95em; }
+    .accordion-content { padding: 0 16px; }
+    .accordion-item.open .accordion-content { padding: 14px 16px; }
+
+    .tool-links { flex-direction: column; padding: 0 15px; }
+    .tool-card { width: 100%; max-width: 100%; }
+}
+
 @media (min-width: 768px) {
     .tool-links {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        align-items: stretch;
     }
     .tool-card {
         flex: 1 1 calc(50% - 20px);
+        max-width: 45%;
     }
 }

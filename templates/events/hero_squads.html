@@ -1,0 +1,309 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<head>
+    <title>部隊編成UI</title>
+    <h3>遠征行軍シミュレーター</h3>
+    <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'events/css/hero_squads.css' %}">
+</head>
+
+<body>
+    <main>
+        <!-- 編成スロット -->
+        <div class="slot-container">
+            <div class="slot" data-slot="1">＋</div>
+            <div class="slot" data-slot="2">＋</div>
+            <div class="slot" data-slot="3">＋</div>
+        </div>
+
+        <!-- 選択済みユニット表示 -->
+        <div class="unit-list" id="unitList"></div>
+    </main>
+
+    <!-- キャラ選択モーダル -->
+    <div class="modal hidden" id="modal">
+        <div class="modal-content">
+            <h4>英雄を選択</h4>
+            
+            <div class="character-grid">
+                <!--キャラなし 初期状態に戻す-->
+                <div class="character-card" data-name="none">
+                    <img src="{% static 'images/events/hero_squads/none.png' %}" alt="キャラなし">
+                    <p>キャラなし</p>
+                </div>
+                <!-- キャラ1 -->
+                <div class="character-card" data-name="スミス">
+                    <img src="{% static 'images/events/hero_squads/smith.png' %}" alt="スミス">
+                    <p>🛡 スミス</p>
+                </div>
+                <!-- キャラ2 -->
+                <div class="character-card" data-name="ユージーン">
+                    <img src="{% static 'images/events/hero_squads/eugene.png' %}" alt="ユージーン">
+                    <p>🛡 ユージーン</p>
+                </div>
+                <!-- キャラ3 -->
+                <div class="character-card" data-name="チャーリー">
+                    <img src="{% static 'images/events/hero_squads/charlie.png' %}" alt="チャーリー">
+                    <p>⚔️ チャーリー</p>
+                </div>
+                <!-- キャラ4 -->
+                <div class="character-card" data-name="クラリス">
+                    <img src="{% static 'images/events/hero_squads/cloris.png' %}" alt="クラリス">
+                    <p>🏹 クラリス</p>
+                </div>
+                <!-- キャラ5 -->
+                <div class="character-card" data-name="セルゲイ">
+                    <img src="{% static 'images/events/hero_squads/sergey.png' %}" alt="セルゲイ">
+                    <p>🛡 セルゲイ</p>
+                </div>
+                <!-- キャラ6 -->
+                <div class="character-card" data-name="ジェシー">
+                    <img src="{% static 'images/events/hero_squads/jessie.png' %}" alt="ジェシー">
+                    <p>⚔️ ジェシー</p>
+                </div>
+                <!-- キャラ7 -->
+                <div class="character-card" data-name="パトリック">
+                    <img src="{% static 'images/events/hero_squads/patrick.png' %}" alt="パトリック">
+                    <p>⚔️ パトリック</p>
+                </div>
+                <!-- キャラ8 -->
+                <div class="character-card" data-name="ルム ボーガン">
+                    <img src="{% static 'images/events/hero_squads/lumak bokan.png' %}" alt="ルム ボーガン">
+                    <p>⚔️ ルム ボーガン</p>
+                </div>
+                <!-- キャラ9 -->
+                <div class="character-card" data-name="リンセツ">
+                    <img src="{% static 'images/events/hero_squads/ling xue.png' %}" alt="リンセツ">
+                    <p>⚔️ リンセツ</p>
+                </div>
+                <!-- キャラ10 -->
+                <div class="character-card" data-name="ジーナ">
+                    <img src="{% static 'images/events/hero_squads/gina.png' %}" alt="ジーナ">
+                    <p>🏹 ジーナ</p>
+                </div>
+                <!-- キャラ11 -->
+                <div class="character-card" data-name="バシティ">
+                    <img src="{% static 'images/events/hero_squads/bahiti.png' %}" alt="バシティ">
+                    <p>🏹 バシティ</p>
+                </div>
+                <!-- キャラ12 -->
+                <div class="character-card" data-name="ジャセル">
+                    <img src="{% static 'images/events/hero_squads/jasser.png' %}" alt="ジャセル">
+                    <p>🏹 ジャセル</p>
+                </div>
+                <!-- キャラ13 -->
+                <div class="character-card" data-name="ソユン">
+                    <img src="{% static 'images/events/hero_squads/seoyoon.png' %}" alt="ソユン">
+                    <p>🏹 ソユン</p>
+                </div>
+                <!-- キャラ14 -->
+                <div class="character-card" data-name="ナタリア">
+                    <img src="{% static 'images/events/hero_squads/natalia.png' %}" alt="ナタリア">
+                    <p>🛡 ナタリア</p>
+                </div>
+                <!-- キャラ15 -->
+                <div class="character-card" data-name="ジェロニモ">
+                    <img src="{% static 'images/events/hero_squads/jeronimo.png' %}" alt="ジェロニモ">
+                    <p>🛡 ジェロニモ</p>
+                </div>
+                <!-- キャラ16 -->
+                <div class="character-card" data-name="ジャスミン">
+                    <img src="{% static 'images/events/hero_squads/molly.png' %}" alt="ジャスミン">
+                    <p>⚔️ ジャスミン</p>
+                </div>
+                <!-- キャラ17 -->
+                <div class="character-card" data-name="ジンマン">
+                    <img src="{% static 'images/events/hero_squads/zinman.png' %}" alt="ジンマン">
+                    <p>🏹 ジンマン</p>
+                </div>
+                <!-- キャラ18 -->
+                <div class="character-card" data-name="フリント">
+                    <img src="{% static 'images/events/hero_squads/flint.png' %}" alt="フリント">
+                    <p>🛡 フリント</p>
+                </div>
+                <!-- キャラ19 -->
+                <div class="character-card" data-name="フレンダー">
+                    <img src="{% static 'images/events/hero_squads/philly.png' %}" alt="フレンダー">
+                    <p>⚔️ フレンダー</p>
+                </div>
+                <!-- キャラ20 -->
+                <div class="character-card" data-name="アロンゾ">
+                    <img src="{% static 'images/events/hero_squads/alonso.png' %}" alt="アロンゾ">
+                    <p>🏹 アロンゾ</p>
+                </div>
+                <!-- キャラ21 -->
+                <div class="character-card" data-name="ローガン">
+                    <img src="{% static 'images/events/hero_squads/logan.png' %}" alt="ローガン">
+                    <p>🛡 ローガン</p>
+                </div>
+                <!-- キャラ22 -->
+                <div class="character-card" data-name="ミア">
+                    <img src="{% static 'images/events/hero_squads/mia.png' %}" alt="ミア">
+                    <p>⚔️ ミア</p>
+                </div>
+                <!-- キャラ23 -->
+                <div class="character-card" data-name="グレッグ">
+                    <img src="{% static 'images/events/hero_squads/greg.png' %}" alt="グレッグ">
+                    <p>🏹 グレッグ</p>
+                </div>
+                <!-- キャラ24 -->
+                <div class="character-card" data-name="アクモス">
+                    <img src="{% static 'images/events/hero_squads/ahmose.png' %}" alt="アクモス">
+                    <p>🛡 アクモス</p>
+                </div>
+                <!-- キャラ25 -->
+                <div class="character-card" data-name="レイナ">
+                    <img src="{% static 'images/events/hero_squads/reina.png' %}" alt="レイナ">
+                    <p>⚔️ レイナ</p>
+                </div>
+                <!-- キャラ26 -->
+                <div class="character-card" data-name="リオン">
+                    <img src="{% static 'images/events/hero_squads/lynn.png' %}" alt="リオン">
+                    <p>🏹 リオン</p>
+                </div>
+                <!-- キャラ27 -->
+                <div class="character-card" data-name="ヘクトー">
+                    <img src="{% static 'images/events/hero_squads/hector.png' %}" alt="ヘクトー">
+                    <p>🛡 ヘクトー</p>
+                </div>
+                <!-- キャラ28 -->
+                <div class="character-card" data-name="ノラ">
+                    <img src="{% static 'images/events/hero_squads/norah.png' %}" alt="ノラ">
+                    <p>⚔️ ノラ</p>
+                </div>
+                <!-- キャラ29 -->
+                <div class="character-card" data-name="グエン">
+                    <img src="{% static 'images/events/hero_squads/gwen.png' %}" alt="グエン">
+                    <p>🏹 グエン</p>
+                </div>
+                <!-- キャラ30 -->
+                <div class="character-card" data-name="無名">
+                    <img src="{% static 'images/events/hero_squads/wu ming.png' %}" alt="無名">
+                    <p>🛡 無名</p>
+                </div>
+                <!-- キャラ31 -->
+                <div class="character-card" data-name="レネ">
+                    <img src="{% static 'images/events/hero_squads/renee.png' %}" alt="レネ">
+                    <p>⚔️ レネ</p>
+                </div>
+                <!-- キャラ32 -->
+                <div class="character-card" data-name="ウェイン">
+                    <img src="{% static 'images/events/hero_squads/wayne.png' %}" alt="ウェイン">
+                    <p>🏹 ウェイン</p>
+                </div>
+                <!-- キャラ33 -->
+                <div class="character-card" data-name="エディス">
+                    <img src="{% static 'images/events/hero_squads/edith.png' %}" alt="エディス">
+                    <p>🛡 エディス</p>
+                </div>
+                <!-- キャラ34 -->
+                <div class="character-card" data-name="ゴードン">
+                    <img src="{% static 'images/events/hero_squads/gordon.png' %}" alt="ゴードン">
+                    <p>⚔️ ゴードン</p>
+                </div>
+                <!-- キャラ35 -->
+                <div class="character-card" data-name="ブラッドリー">
+                    <img src="{% static 'images/events/hero_squads/bradley.png' %}" alt="ブラッドリー">
+                    <p>🏹 ブラッドリー</p>
+                </div>
+                <!-- キャラ36 -->
+                <div class="character-card" data-name="ガト">
+                    <img src="{% static 'images/events/hero_squads/gatot.png' %}" alt="ガト">
+                    <p>🛡 ガト</p>
+                </div>
+                <!-- キャラ37 -->
+                <div class="character-card" data-name="ソニヤ">
+                    <img src="{% static 'images/events/hero_squads/sonya.png' %}" alt="ソニヤ">
+                    <p>⚔️ ソニヤ</p>
+                </div>
+                <!-- キャラ38 -->
+                <div class="character-card" data-name="ヘンドリック">
+                    <img src="{% static 'images/events/hero_squads/hendrik.png' %}" alt="ヘンドリック">
+                    <p>🏹 ヘンドリック</p>
+                </div>
+                <!-- キャラ39 -->
+                <div class="character-card" data-name="マグヌス">
+                    <img src="{% static 'images/events/hero_squads/magnus.png' %}" alt="マグヌス">
+                    <p>🛡 マグヌス</p>
+                </div>
+                <!-- キャラ40 -->
+                <div class="character-card" data-name="フレッド">
+                    <img src="{% static 'images/events/hero_squads/fred.png' %}" alt="フレッド">
+                    <p>⚔️ フレッド</p>
+                </div>
+                <!-- キャラ41 -->
+                <div class="character-card" data-name="シュラ">
+                    <img src="{% static 'images/events/hero_squads/xura.png' %}" alt="シュラ">
+                    <p>🏹 シュラ</p>
+                </div>
+                <!-- キャラ42 -->
+                <div class="character-card" data-name="グレゴリー">
+                    <img src="{% static 'images/events/hero_squads/gregory.png' %}" alt="グレゴリー">
+                    <p>🛡 グレゴリー</p>
+                </div>
+                <!-- キャラ43 -->
+                <div class="character-card" data-name="フレイヤ">
+                    <img src="{% static 'images/events/hero_squads/freya.png' %}" alt="フレイヤ">
+                    <p>⚔️ フレイヤ</p>
+                </div>
+                <!-- キャラ44 -->
+                <div class="character-card" data-name="ブランシュ">
+                    <img src="{% static 'images/events/hero_squads/blanchette.png' %}" alt="ブランシュ">
+                    <p>🏹 ブランシュ</p>
+                </div>
+                <!-- キャラ45 -->
+                <div class="character-card" data-name="エリオノーラ">
+                    <img src="{% static 'images/events/hero_squads/eleonora.png' %}" alt="エリオノーラ">
+                    <p>🛡 エリオノーラ</p>
+                </div>
+                <!-- キャラ46 -->
+                <div class="character-card" data-name="ロイド">
+                    <img src="{% static 'images/events/hero_squads/lloyd.png' %}" alt="ロイド">
+                    <p>⚔️ ロイド</p>
+                </div>
+                <!-- キャラ47 -->
+                <div class="character-card" data-name="ルーファス">
+                    <img src="{% static 'images/events/hero_squads/rufus.png' %}" alt="ルーファス">
+                    <p>🏹 ルーファス</p>
+                </div>
+                <!-- キャラ48 -->
+                <div class="character-card" data-name="ヘルヴィル">
+                    <img src="{% static 'images/events/hero_squads/hervor.png' %}" alt="ヘルヴィル">
+                    <p>🛡 ヘルヴィル</p>
+                </div>
+                <!-- キャラ49 -->
+                <div class="character-card" data-name="カロール">
+                    <img src="{% static 'images/events/hero_squads/karol.png' %}" alt="カロール">
+                    <p>⚔️ カロール</p>
+                </div>
+                <!-- キャラ50 -->
+                <div class="character-card" data-name="ライジーア">
+                    <img src="{% static 'images/events/hero_squads/ligeia.png' %}" alt="ライジーア">
+                    <p>🏹 ライジーア</p>
+                </div>
+                <!-- キャラ51 -->
+                <div class="character-card" data-name="ギーセラ">
+                    <img src="{% static 'images/events/hero_squads/gisela.png' %}" alt="ギーセラ">
+                    <p>🛡 ギーセラ</p>
+                </div>
+                <!-- キャラ52 -->
+                <div class="character-card" data-name="フローラ">
+                    <img src="{% static 'images/events/hero_squads/flora.png' %}" alt="フローラ">
+                    <p>⚔️ フローラ</p>
+                </div>
+                <!-- キャラ53 -->
+                <div class="character-card" data-name="ウルカヌス">
+                    <img src="{% static 'images/events/hero_squads/vulcanus.png' %}" alt="ウルカヌス">
+                    <p>🏹 ウルカヌス</p>
+                </div>
+            </div>
+        <script src="script.js"></script>
+</body>
+
+
+<script src="{% static 'events/js/hero_squads.js' %}"></script>
+{% endblock %}

@@ -2,11 +2,12 @@
 {% load static %}
 {% block title %}素材計算ツール{% endblock %}
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'base/css/base.css' %}">
 <link rel="stylesheet" href="{% static 'materials/css/index.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="tool-list-container">
+
     <h1 class="tool-list-title">素材計算ツール一覧</h1>
     <div class="tool-links">
         <a href="{% url 'fire_crystal' %}" class="tool-card">
@@ -54,5 +55,4 @@
             <p class="card-description">近日公開</p>
         </div>
     </div>
-</div>
 {% endblock %}

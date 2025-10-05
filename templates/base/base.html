@@ -12,30 +12,34 @@
 
 <body>
     <header>
-        <h1>
-            <li><a href="/">ホワサバツール</a><a href="https://whiteoutsurvival.centurygames.com/ja/" class="logo-link">
-                    <img src="{% static 'images/base/whiteoutsurvival.jpg' %}" alt="ロゴ">
-                </a>
-            </li>
+        <!-- 上段（ロゴ＋タイトル部分） -->
+        <div class="header-top">
+            <h1><a href="/">ホワサバツール</a></h1>
+            <a href="https://whiteoutsurvival.centurygames.com/ja/" class="logo-link">
+                <img src="{% static 'images/base/whiteoutsurvival.jpg' %}" alt="ロゴ">
+            </a>
 
-
-        </h1>
-
-        <nav>
-            <ul>
-                <li><a href="/materials/">素材計算ツール</a></li>
-                <li><a href="/timers/">時間計算ツール</a></li>
-                <li><a href="/events/">イベント攻略</a></li>
-                <li>
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'profile' user.username %}">プロフィール </a>
-                    {% else %}
-                    <a href="{% url 'login' %}">ログイン </a>
-                    {% endif %}
-                </li>
-            </ul>
-        </nav>
+        </div>
     </header>
+
+    <!-- 下段（ナビバーだけ固定） -->
+    <nav class="navbar">
+        <ul class="navbar-list">
+            <li class="navbar-item"><a href="/">TOP</a></li>
+            <li class="navbar-item"><a href="/materials/">素材計算ツール</a></li>
+            <li class="navbar-item"><a href="/timers/">時間計算ツール</a></li>
+            <li class="navbar-item"><a href="/events/">イベント攻略</a></li>
+            <li class="navbar-item">
+                <a href="/">ログイン </a>
+                <!--{% if user.is_authenticated %}
+                <a href="/{% url 'profile' user.username %}">プロフィール </a>
+                {% else %}
+                <a href="{% url 'login' %}">ログイン </a>
+                {% endif %}-->
+            </li>
+        </ul>
+    </nav>
+
 
     <main>
         {% block content %}{% endblock %}

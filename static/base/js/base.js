@@ -1,16 +1,17 @@
-let lastScrollY = window.scrollY;
-const header = document.querySelector('header');
+document.addEventListener('DOMContentLoaded', function() {
+    const headerTop = document.querySelector('.header-top');
+    let lastScroll = 0;
 
-window.addEventListener('scroll', () => {
-    if (window.scrollY === 0) {
-        // ページの一番上にいるときは必ず表示
-        header.classList.remove('header-hidden');
-    } else if (lastScrollY < window.scrollY) {
-        // 下にスクロールしている時は非表示
-        header.classList.add('header-hidden');
-    } else {
-        // 上にスクロールしている時は表示
-        header.classList.add('header-hidden');
-    }
-    lastScrollY = window.scrollY;
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll > lastScroll && currentScroll > 50) {
+            // 下にスクロール → header-top だけ隠す
+            headerTop.classList.add('hidden');
+        } else {
+            headerTop.classList.remove('hidden');
+        }
+
+        lastScroll = currentScroll;
+    });
 });

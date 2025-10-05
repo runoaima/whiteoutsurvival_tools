@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-!%av77$8gq=s=v%#zs#@ij4#+)15n)i5+f@qf(ggbcekjz^bn7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['runo.pythonanywhere.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['runo.pythonanywhere.com', '127.0.0.1', 'localhost',
+                 '192.168.40.164'
+                 ]  # デバッグ用ホスト
+
 
 
 # Application definition

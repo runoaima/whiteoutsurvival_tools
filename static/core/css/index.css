@@ -1,167 +1,194 @@
+/* ========================== 全体リセット & ベース ========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* 横スクロール防止 */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #fff;  /* 全体背景白 */
+    color: #333;
+    line-height: 1.6;
+}
+
+
+
+/* ========================== メイン ========================== */
 main {
     flex-grow: 1;
-    padding: 0px;
-    margin: 10px auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     width: 100%;
+    max-width: 100%;
+    margin: 20px auto 0 auto; /* 上だけ20px余白 */
+    padding: 0;
+    background: #fff; /* 全体白背景 */
     box-sizing: border-box;
-    margin-top: 100px;
-    /* ヘッダーの高さに合わせて調整 */
 }
 
-h1 {
-    color: darkred;
+
+/* ========================== 見出し ========================== */
+h2 {
+    color: #2c3e50;
+    font-size: 2.4em;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
 }
 
-/* styles.css (例) */
-
+/* ========================== トップページ用コンテナ ========================== */
 .top-page-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 100%;      /* 画面幅に合わせる */
+    margin: 0;            /* 左右の余白をなくす */
+    padding: 25px;        /* 内側余白は残す */
+    background: #fff;
+    border-radius: 0;     /* 角丸をなくす場合 */
+    box-shadow: none;     /* シャドウをなくす場合 */
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+.top-page-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 }
 
 .welcome-heading {
-    font-size: 2.5em;
-    color: #34495e;
+    font-size: 2.2em;
+    color: #2c3e50;
+    margin-bottom: 12px;
+    font-weight: bold;
 }
 
 .intro-text {
-    font-size: 1.2em;
-    color: #7f8c8d;
+    font-size: 1.1em;
+    color: #666;
 }
 
+/* ========================== ツール・情報リスト ========================== */
 .tool-list,
 .info-list {
-    margin-top: 30px;
+    margin-top: 35px;
+    text-align: left;
 }
 
 .tool-list h3,
 .info-list h3 {
-    color: #3498db;
-    border-bottom: 2px solid #ecf0f1;
-    padding-bottom: 10px;
-    display: inline-block;
+    color: #065cfa;
+    border-left: 4px solid #065cfa;
+    padding-left: 10px;
+    margin-bottom: 18px;
+    font-size: 1.3em;
+    font-weight: bold;
 }
 
 .tool-list ul,
 .info-list ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .tool-list a,
 .info-list a {
     display: block;
     margin: 10px 0;
-    padding: 15px;
-    background-color: #f1f1f1;
-    border-radius: 5px;
+    padding: 14px 18px;
+    background: #f9fbff;
+    border-radius: 10px;
     text-decoration: none;
     color: #2c3e50;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid #e5eaf0;
 }
 
 .tool-list a:hover,
 .info-list a:hover {
-    background-color: #e0e0e0;
+    background: linear-gradient(90deg, #eaf2ff, #f7fbff);
+    color: #065cfa;
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(6, 92, 250, 0.15);
 }
 
-/* アコーディオン全体のスタイル */
+/* ========================== アコーディオン ========================== */
 .accordion-item {
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    border-radius: 8px;
+    border: 1px solid #e0e6f0;
+    margin-bottom: 14px;
+    border-radius: 10px;
     overflow: hidden;
+    transition: box-shadow 0.3s ease;
 }
 
-/* ヘッダー（タップする部分）のスタイル */
+.accordion-item:hover {
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
 .accordion-header {
-    padding: 15px;
-    background-color: #f7f7f7;
+    padding: 16px 22px;
+    background: #f5f7fa;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
     user-select: none;
-    /* テキスト選択を無効化 */
+    font-weight: bold;
+    color: #2c3e50;
+    transition: background 0.3s ease;
 }
 
-/* タイトルのスタイル */
+.accordion-header:hover {
+    background: #eaf2ff;
+}
+
 .accordion-title {
     margin: 0;
-    font-size: 1.1em;
-    color: #333;
+    font-size: 1em;
 }
 
-/* 詳細コンテンツの初期状態（非表示） */
 .accordion-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
-    background-color: #fff;
-    padding: 0 15px;
-    /* 非表示時はパディングをゼロにする */
-}
-
-/* .openクラスが追加された時のスタイル */
-.accordion-item.open .accordion-content {
-    max-height: 500px;
-    /* 十分な高さを設定してコンテンツを表示 */
-    padding: 15px;
-}
-
-/* アコーディオン全体のスタイル */
-.accordion-item {
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-/* ヘッダー（タップする部分）のスタイル */
-.accordion-header {
-    padding: 15px;
-    background-color: #f7f7f7;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    user-select: none;
-    /* テキスト選択を無効化 */
-}
-
-/* タイトルのスタイル */
-.accordion-title {
-    margin: 0;
-    font-size: 1.1em;
-    color: #333;
-}
-
-/* 詳細コンテンツの初期状態（非表示） */
-.accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
-    background-color: #fff;
-    padding: 0 15px;
-    /* 非表示時はパディングをゼロにする */
+    transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out;
+    background: #fff;
+    padding: 0 22px;
     border-top: 1px solid transparent;
-    /* 展開時に線が表示されるように設定 */
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.6;
 }
 
-/* .openクラスが追加された時のスタイル */
 .accordion-item.open .accordion-content {
-    max-height: 500px;
-    /* 十分な高さを設定してコンテンツを表示 */
-    padding: 15px;
-    border-top: 1px solid #ddd;
-    /* 展開時にボーダーを追加 */
+    max-height: 600px;
+    padding: 18px 22px;
+    border-top: 1px solid #e0e6f0;
+}
+
+/* ========================== レスポンシブ ========================== */
+@media (max-width: 768px) {
+    .welcome-heading {
+        font-size: 1.9em;
+    }
+
+    .intro-text {
+        font-size: 1em;
+    }
+
+    .accordion-header {
+        padding: 14px 16px;
+        font-size: 0.95em;
+    }
+
+    .accordion-content {
+        padding: 0 16px;
+    }
+
+    .accordion-item.open .accordion-content {
+        padding: 14px 16px;
+    }
 }

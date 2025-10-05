@@ -1,0 +1,23 @@
+{% extends "base/base.html" %}
+{% block content %}
+{% load static %}
+
+
+{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
+
+
+<main>
+    <h2>ログイン</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ログイン</button>
+    </form>
+
+    <a href="{% url 'signup' %}">アカウント作成はこちら</a>
+</main>
+
+<script src="{% static 'accounts/js/login.js' %}"></script>
+{% endblock %}

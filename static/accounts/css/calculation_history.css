@@ -1,0 +1,148 @@
+/* リニューアル後のCSS */
+
+/* 全体のスタイル */
+body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #ffffff; /* 超暗い背景色 */
+    color: #e0e0e0; /* 明るい文字色 */
+    line-height: 1.6;
+}
+
+/* コンテンツ全体を中央に配置し、幅を制限します */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: #ffffff; /* コンテンツの背景色 */
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* タイトルと段落のスタイル */
+h1 {
+    margin: 0 0 15px;
+    font-size: 1.8em;
+    color: #ffd700; /* アクセントカラーを金色に変更 */
+    border-bottom: 2px solid #ffd700;
+    padding-bottom: 12px;
+}
+
+p {
+    color: #b0b0b0;
+}
+
+/* 計算記録のリストスタイル */
+.calculation-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.calculation-list li {
+    background-color: #2a2a2a; /* リスト項目の背景色 */
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-left: 5px solid #ffd700; /* 左側にアクセントラインを追加 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calculation-list li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 履歴内の各タイトルのスタイル */
+.calculation-list li h3 {
+    margin: 0 0 10px;
+    font-size: 1.4em;
+    color: #ffffff;
+}
+
+/* 計算結果のテーブル表示 */
+.result-display {
+    margin: 15px 0;
+}
+
+.result-display .styled-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #363636;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.result-display .styled-table th,
+.result-display .styled-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #4a4a4a;
+}
+
+.result-display .styled-table th {
+    background-color: #2a2a2a;
+    color: #ffd700;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.result-display .styled-table td {
+    color: #dcdcdc;
+}
+
+.result-display .styled-table tr:nth-child(even) {
+    background-color: #303030;
+}
+
+.result-display .styled-table strong {
+    color: #fff;
+    font-size: 1.1em;
+}
+
+/* ボタンの共通スタイル */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 10px 5px 0 0;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 復元ボタンのスタイル */
+.btn-restore {
+    background-color: #2ecc71; /* 緑色 */
+    color: #ffffff;
+}
+
+.btn-restore:hover {
+    background-color: #27ae60;
+}
+
+/* 削除ボタンのスタイル */
+.btn-delete {
+    background-color: #e74c3c; /* 赤色 */
+    color: #ffffff;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* 水平線 */
+hr {
+    border: 0;
+    border-top: 1px solid #4a4a4a;
+    margin: 25px 0;
+}

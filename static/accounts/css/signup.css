@@ -1,0 +1,73 @@
+main {
+    flex-grow: 1;
+    padding: 10px;
+    margin: 10px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 100px;
+    /* ヘッダーの高さに合わせて調整 */
+}
+/* ボタンの共通スタイル */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none; /* ボタンのデフォルトのボーダーをなくす */
+}
+
+/* 登録ボタンのスタイル */
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* キャンセルボタンのスタイル */
+.btn-cancel {
+    background-color: #6c757d;
+    color: #fff;
+    margin-left: 10px; /* 登録ボタンとの間に余白を追加 */
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+/* ボタンを並べるためのコンテナ */
+.form-actions {
+    margin-top: 20px;
+    text-align: center; /* ボタンを中央揃えにする */
+}
+
+/* フォームの各要素のスタイル */
+form p {
+    margin-bottom: 15px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

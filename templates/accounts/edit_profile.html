@@ -1,0 +1,26 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'accounts/css/edit_profile.css' %}">
+
+<h1>プロフィール編集</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <h2>ユーザー情報</h2>
+    {{ user_form.as_p }}
+
+    <h2>プロフィール情報</h2>
+    {{ profile_form.as_p }}
+
+    <div class="form-buttons">
+        <button type="submit" class="btn-save">保存</button>
+        <button type="button" class="btn-cancel" onclick="window.location.href='{% url 'profile' user.username %}'">キャンセル</button>
+    </div>
+
+<script src="{% static 'accounts/js/edit_profile.js' %}"></script>
+</form>
+
+{% endblock %}

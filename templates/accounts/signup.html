@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'accounts/css/signup.css' %}">
+
+
+
+<h2>アカウント作成</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">登録</button>
+        <a href="/" class="btn btn-cancel">キャンセル</a>
+    </div>
+</form>
+
+<script src="{% static 'accounts/js/signup.js' %}"></script>
+
+{% endblock %}

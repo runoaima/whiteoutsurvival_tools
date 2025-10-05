@@ -1,0 +1,67 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<head>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+</head>
+
+<body>
+
+    <!-- プロフィール概要（中央表示） -->
+    <section class="profile-header">
+        {% if profile_user.profile.avatar %}
+        <img src="{{ profile_user.profile.avatar.url }}" class="avatar" alt="プロフィール画像">
+        {% else %}
+        <div class="avatar-placeholder">👤</div>
+        {% endif %}
+
+        <h1>{{ profile_user.username }}</h1>
+
+        <div class="profile-stats">
+            <span>投稿 0</span>
+            <span>フォロー 0</span>
+            <span>フォロワー 0</span>
+        </div>
+
+        {% if user.is_authenticated and user.username == profile_user.username %}
+        <a href="{% url 'edit_profile' profile_user.username %}" class="edit-btn">プロフィール編集</a>
+        {% endif %}
+        
+    </section>
+
+    <!-- 自己紹介・場所・誕生日 -->
+    <section class="profile-info">
+        <p>自己紹介: {{ profile_user.profile.bio|default:"未設定" }}</p>
+        <p>場所: {{ profile_user.profile.location|default:"未設定" }}</p>
+        <p>誕生日: {{ profile_user.profile.birth_date|default:"未設定" }}</p>
+    </section>
+
+    <a href="{% url 'calculation_history' %}" class="history-link">計算履歴を見る</a>
+    <!-- ログアウト -->
+    {% if user.is_authenticated and user.username == profile_user.username %}
+    <form action="{% url 'logout' %}" method="post" class="logout-form">
+        {% csrf_token %}
+        <button type="submit">ログアウト</button>
+    </form>
+    {% endif %}
+
+    <!-- アカウント削除（本人または管理者のみ） -->
+    {% if user.username == profile_user.username or user.is_superuser %}
+    <form action="{% url 'delete_user' profile_user.username %}" method="post" class="delete-form">
+        {% csrf_token %}
+        <button type="submit" onclick="return confirm('本当に削除しますか？');">
+            アカウント削除
+        </button>
+    </form>
+    {% endif %}
+
+    
+
+
+    <script src="{% static 'accounts/js/profile.js' %}"></script>
+</body>
+
+{% endblock %}

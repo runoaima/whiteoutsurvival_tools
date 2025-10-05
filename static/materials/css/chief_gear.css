@@ -11,7 +11,7 @@ main {
     width: 100%; /* 幅を画面いっぱいに広げる */
     max-width: 1200px; /* 最大幅を設定してPCで見やすくする */
     box-sizing: border-box;
-    margin-top: 180px; /* ヘッダーの高さに合わせて調整 */
+    margin-top: 100px; /* ヘッダーの高さに合わせて調整 */
 }
 
 /* 警告メッセージのスタイル */
@@ -129,4 +129,38 @@ select {
     background-color: #f39c12;
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* クリアボタンのスタイル */
+.btn-clear {
+    background-color: #f44336; /* 赤色 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 10px 5px; /* ボタン間の間隔 */
+}
+
+.btn-clear:hover {
+    background-color: #d32f2f; /* ホバー時に少し暗い赤色に */
+}
+
+/* 保存ボタンのスタイル */
+.btn-save {
+    background-color: #4CAF50; /* 緑色 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 10px 5px; /* ボタン間の間隔 */
+}
+
+.btn-save:hover {
+    background-color: #45a049; /* ホバー時に少し暗い緑色に */
 }

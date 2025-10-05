@@ -1,0 +1,38 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'materials/css/hero_star.css' %}">
+
+<h3 class="tool-title">英雄星ランク計算ツール</h3>
+<h1 class="warning-message">※レベルを逆に入力すると値が出力されません</h1>
+<div id="rankGroups"></div>
+
+<div class="controls">
+    <span id="counter" style="display: none;"></span>
+    <button class="add-button" onclick="addOne()">装備を増やす</button>
+    <button class="sub-button" onclick="subOne()">装備を減らす</button>
+</div>
+
+<div id="result" class="table-container"></div>
+
+<button id="clearButton" class="btn btn-clear">入力をクリア</button>
+
+<button id="saveButton" class="btn btn-save" style="display:none;">計算結果を保存</button>
+
+<div class="related-tools">
+    <h2 class="related-title">関連ツール</h2>
+    <a href="{% url 'fire_crystal' %}" class="related-link">火晶計算ツール</a>
+    <a href="{% url 'hero_gear' %}" class="related-link">英雄装備計算ツール</a>
+    <a href="{% url 'chief_gear' %}" class="related-link">領主装備計算ツール</a>
+    <a href="{% url 'chief_charm' %}" class="related-link">領主宝石計算ツール</a>
+</div>
+
+<div id="hero_star_image_data" 
+    data-hero-star-url="{% static 'images/materials/hero_star/hero_shard.png' %}"
+    ></div>
+
+<script src="{% static 'materials/js/hero_star.js' %}"></script>
+
+{% endblock %}

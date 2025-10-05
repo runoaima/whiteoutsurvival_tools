@@ -96,7 +96,7 @@ main {
     width: 100%; /* 幅を画面いっぱいに広げる */
     max-width: 1200px; /* 最大幅を設定してPCで見やすくする */
     box-sizing: border-box;
-    margin-top: 180px; /* ヘッダーの高さに合わせて調整 */
+    margin-top: 100px; /* ヘッダーの高さに合わせて調整 */
 }
 
 #clock {

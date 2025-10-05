@@ -11,10 +11,16 @@
 
 <div id="result" class="table-container"></div>
 
+<button id="clearButton" class="btn btn-clear">入力をクリア</button>
+
+<button id="saveButton" class="btn btn-save" style="display:none;">計算結果を保存</button>
+
 <div class="related-tools">
     <h2 class="related-title">関連ツール</h2>
     <a href="{% url 'fire_crystal' %}" class="related-link">火晶計算ツール</a>
+    <a href="{% url 'chief_charm' %}" class="related-link">領主宝石計算ツール</a>
     <a href="{% url 'hero_gear' %}" class="related-link">英雄装備計算ツール</a>
+    <a href="{% url 'hero_star' %}" class="related-link">英雄ランク計算ツール</a>
 </div>
 
 <div id="chief_gear_image_data" 

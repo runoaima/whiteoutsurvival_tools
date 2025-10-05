@@ -247,116 +247,263 @@ function addOne() {
     document.getElementById('counter').textContent = count;
 
     const div = document.createElement("div");
-    // インラインスタイルを削除し、クラス名に変更
+    // 省略：追加したHTMLを挿入
     div.innerHTML = `
         <strong class="equipment-title">装備${count}</strong><br><br>
-
         <label class="slider-label-container">現在Lv:
             <span id="sval${count}" class="slider-label">0</span>
         </label>
+        <button type="button" class="level-button plus" data-target="start${count}">+</button>
+        <button type="button" class="level-button minus" data-target="start${count}">-</button>
         <input type="range" id="start${count}" min="0" max="200" value="0" step="1" class="slider blue">
-
         <br><br>
-
         <label class="slider-label-container">希望Lv:
             <span id="eval${count}" class="slider-label">+100</span>
         </label>
+        <button type="button" class="level-button plus" data-target="end${count}">+</button>
+        <button type="button" class="level-button minus" data-target="end${count}">-</button>
         <input type="range" id="end${count}" min="0" max="200" value="200" step="1" class="slider red">
-
         <br><br>
-
-        <label class="slider-label-container">製錬Lv:
-            <span id="newval${count}" class="slider-label">0</span>
+        <label class="slider-label-container">製錬現在Lv:
+            <span id="newvalStart${count}" class="slider-label">0</span>
         </label>
-        <input type="range" id="newslider${count}" min="0" max="20" value="0" step="1" class="slider">
+        <button type="button" class="level-button plus" data-target="newsliderStart${count}">+</button>
+        <button type="button" class="level-button minus" data-target="newsliderStart${count}">-</button>
+        <input type="range" id="newsliderStart${count}" min="0" max="20" value="0" step="1" class="slider">
+        <br><br>
+        <label class="slider-label-container">製錬希望Lv:
+            <span id="newvalEnd${count}" class="slider-label">20</span>
+        </label>
+        <button type="button" class="level-button plus" data-target="newsliderEnd${count}">+</button>
+        <button type="button" class="level-button minus" data-target="newsliderEnd${count}">-</button>
+        <input type="range" id="newsliderEnd${count}" min="0" max="20" value="20" step="1" class="slider">
+        
     `;
     rankGroups.appendChild(div);
 
-    const startSlider = document.getElementById(`start${count}`);
-    const endSlider = document.getElementById(`end${count}`);
-    const newSlider = document.getElementById(`newslider${count}`);
+    const currentCount = count;
+    const sliders = [
+        { id: `start${currentCount}`, label: `sval${currentCount}` },
+        { id: `end${currentCount}`, label: `eval${currentCount}` },
+        { id: `newsliderStart${currentCount}`, label: `newvalStart${currentCount}` },
+        { id: `newsliderEnd${currentCount}`, label: `newvalEnd${currentCount}` }
+    ];
 
-    startSlider.addEventListener("input", function() {
-        updateLabel(this.value, `sval${count}`);
-        updateTable();
-    });
-    endSlider.addEventListener("input", function() {
-        updateLabel(this.value, `eval${count}`);
-        updateTable();
-    });
-    newSlider.addEventListener("input", function() {
-        updateLabel(this.value, `newval${count}`);
-        updateTable();
+    sliders.forEach(s => {
+        const sliderEl = document.getElementById(s.id);
+        if (sliderEl) {
+            sliderEl.addEventListener("input", function () {
+                updateLabel(this.value, s.label);
+                updateTable();
+            });
+        }
     });
 
+    const minusButtons = div.querySelectorAll('.level-button.minus');
+    const plusButtons = div.querySelectorAll('.level-button.plus');
+
+    minusButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const targetId = this.dataset.target;
+            const slider = document.getElementById(targetId);
+            if (slider && parseInt(slider.value) > parseInt(slider.min)) {
+                slider.value = parseInt(slider.value) - 1;
+                slider.dispatchEvent(new Event('input'));
+            }
+        });
+    });
+
+    plusButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const targetId = this.dataset.target;
+            const slider = document.getElementById(targetId);
+            if (slider && parseInt(slider.value) < parseInt(slider.max)) {
+                slider.value = parseInt(slider.value) + 1;
+                slider.dispatchEvent(new Event('input'));
+            }
+        });
+    });
     updateTable();
 }
 
 function updateLabel(val, spanId) {
     const num = parseInt(val);
     const label = document.getElementById(spanId);
-    if (num <= 100) {
+    if (!label) return;
+    if (spanId.startsWith('sval') || spanId.startsWith('newval')) {
         label.textContent = num;
     } else {
-        label.textContent = '+' + (num - 100);
+        label.textContent = '+' + num;
     }
 }
 
 function subOne() {
     if (count > 0) {
-        count -= 1;
-        document.getElementById('counter').textContent = count;
         const lastChild = rankGroups.lastElementChild;
         if (lastChild) {
             rankGroups.removeChild(lastChild);
         }
+        count -= 1;
+        document.getElementById('counter').textContent = count;
         updateTable();
     }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const restoreData = urlParams.get('data');
+    const saveButton = document.getElementById('saveButton');
+    const clearButton = document.getElementById('clearButton');
+
+    if (restoreData) {
+        try {
+            const inputData = JSON.parse(decodeURIComponent(restoreData));
+            const sliderCounts = inputData.length / 4;
+            for (let i = 0; i < sliderCounts; i++) {
+                addOne();
+            }
+            inputData.forEach(item => {
+                const slider = document.getElementById(item.id);
+                if (slider) {
+                    slider.value = item.value;
+                    updateLabel(item.value, item.id.replace('start', 'sval').replace('end', 'eval').replace('newsliderStart', 'newvalStart').replace('newsliderEnd', 'newvalEnd'));
+                }
+            });
+            updateTable();
+        } catch (e) {
+            console.error('復元データの解析に失敗しました:', e);
+            addOne();
+        }
+    } else {
+        addOne();
+    }
+
+    if (saveButton) {
+        saveButton.addEventListener('click', function () {
+            const resultTitle = "領主宝石計算結果";
+            const resultHtml = resultDiv.innerHTML;
+            const inputData = [];
+            const sliderElements = rankGroups.querySelectorAll('input[type="range"]');
+            sliderElements.forEach(slider => {
+                inputData.push({
+                    id: slider.id,
+                    value: slider.value
+                });
+            });
+
+            fetch('/accounts/save_calculation_result/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({
+                    title: resultTitle,
+                    result_html: resultHtml,
+                    input_data: inputData
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('計算結果がプロフィールに保存されました！');
+                    } else {
+                        alert('保存に失敗しました: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('通信エラーが発生しました。');
+                });
+        });
+    }
+
+    if (clearButton) {
+        clearButton.addEventListener('click', function () {
+            while (count > 0) {
+                subOne();
+            }
+            addOne();
+            updateTable();
+        });
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
 
 function updateTable() {
     const totalsPerSet = Array(count).fill(null).map(() => {
         return { "エナジー石": 0, "ミスリル": 0, "必要経験値": 0, "レジェンド装備": 0 };
     });
     const totalAll = { "エナジー石": 0, "ミスリル": 0, "必要経験値": 0, "レジェンド装備": 0 };
+    let hasCalculatedMaterials = false;
 
     for (let i = 1; i <= count; i++) {
         const startEl = document.getElementById(`start${i}`);
         const endEl = document.getElementById(`end${i}`);
-        const newSliderEl = document.getElementById(`newslider${i}`);
+        const newStartEl = document.getElementById(`newsliderStart${i}`);
+        const newEndEl = document.getElementById(`newsliderEnd${i}`);
+
+        if (!startEl || !endEl || !newStartEl || !newEndEl) {
+            continue;
+        }
 
         const from = parseInt(startEl.value);
         const to = parseInt(endEl.value);
-        const newLevel = parseInt(newSliderEl.value);
+        const newStart = parseInt(newStartEl.value);
+        const newEnd = parseInt(newEndEl.value);
 
         // 現在/希望レベルの計算
         if (from !== to && from < to) {
             for (let lv = from; lv < to; lv++) {
-                if (!materialTable[lv+1]) continue;
-                materialTable[lv+1].forEach(entry => {
+                if (!materialTable[lv + 1]) continue;
+                materialTable[lv + 1].forEach(entry => {
                     const [name, val] = entry.split("×");
                     const n = parseInt(val);
                     totalsPerSet[i - 1][name] += n;
                     totalAll[name] += n;
+                    if (n > 0) hasCalculatedMaterials = true;
                 });
             }
         }
 
-        // 追加スライダーの計算
-        if (newLevel > 0) {
-            for (let lv = 1; lv <= newLevel; lv++) {
-                if (!materialTableNew[lv]) continue;
-                materialTableNew[lv].forEach(entry => {
+        // 製錬レベルの計算
+        if (newStart !== newEnd && newStart < newEnd) {
+            for (let lv = newStart; lv < newEnd; lv++) {
+                if (!materialTableNew[lv + 1]) continue;
+                materialTableNew[lv + 1].forEach(entry => {
                     const [name, val] = entry.split("×");
                     const n = parseInt(val);
                     totalsPerSet[i - 1][name] += n;
                     totalAll[name] += n;
+                    if (n > 0) hasCalculatedMaterials = true;
                 });
             }
         }
     }
 
-    let html = `<table class="styled-table"><tr><th>セット</th>`;
+    const imageDataEl = document.getElementById("hero_gear_image_data");
+    const hero_gear_materialImages = {
+        "エナジー石": imageDataEl.dataset.essenceStonesUrl,
+        "ミスリル": imageDataEl.dataset.mithrilUrl,
+        "必要経験値": imageDataEl.dataset.enhancementXpUrl,
+        "レジェンド装備": imageDataEl.dataset.mithicGearUrl
+    };
+
+    let html = `<h3>合計必要素材</h3><table class="styled-table"><tr><th>セット</th>`;
     materialKeys.forEach(key => {
         html += `<th><img src="${hero_gear_materialImages[key]}" width="32"><br>${key}</th>`;
     });
@@ -376,7 +523,13 @@ function updateTable() {
     });
     html += `</tr></table>`;
     resultDiv.innerHTML = html;
-}
 
-// 初期表示は addOne() が呼び出されると実行されるため不要
-updateTable();
+    const saveButton = document.getElementById('saveButton');
+    if (saveButton) {
+        if (hasCalculatedMaterials) {
+            saveButton.style.display = 'block';
+        } else {
+            saveButton.style.display = 'none';
+        }
+    }
+}

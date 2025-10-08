@@ -108,7 +108,7 @@ header h1 a:hover {
 /* navbar は常に画面上に固定 */
 .navbar {
     background: #fff;
-    border-top: 1px solid #eee;
+    border-top: 2px solid #2a5cc9;
     border-bottom: 1px solid #eee;
     position: sticky;
     top: 0;           /* ここが重要 */

@@ -51,6 +51,12 @@ h4 {
     color: #123c7a;
 }
 
+h5 {
+    margin: 0 0 0px;
+    font-size: 0.8em;
+    color: #ff3a3a;
+}
+
 .back-btn {
     background: none;
     border: none;
@@ -86,6 +92,116 @@ h4 {
     object-fit: contain; /* はみ出さず、余白を作って収める */
     border-radius: 8px; /* お好みで角丸 */
 }
+
+
+/* =========================
+   スキルテーブルのスタイル
+========================= */
+
+/* テーブル全体 */
+.skill-table {
+    background-color: #ffffff;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    transition: 0.2s ease;
+}
+
+/* テーブルを囲むためのコンテナ */
+.table-container {
+    width: 95%;
+    margin: 5px auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* スクロールバー非表示（任意） */
+.table-container::-webkit-scrollbar {
+    display: none;
+}
+.table-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* セル共通 */
+.skill-table th,
+.skill-table td {
+    padding: 0.5rem 0.3rem;
+    border-bottom: 1px solid #e9ecef;
+    text-align: center;
+    font-size: 0.6rem;
+    color: #000; /* ← 文字色を黒に統一 */
+}
+
+/* ヘッダー部分 */
+.skill-table th {
+    background-color: #3498db;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 最終行（特別な色付けなし） */
+.skill-table tbody tr:last-child {
+    background-color: #fff;
+    font-weight: normal;
+    color: #000;
+}
+
+.skill-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ホバー時 */
+.skill-table tbody tr:hover:not(:last-child) {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+/* 非表示クラス */
+.hidden {
+    display: none;
+}
+
+.skill-display-container {
+    display: flex;
+    flex-direction: column; /* 上から順に縦並び */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.skill-display {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.skill-display h5 {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.empty-slot {
+    font-size: 0.9rem;
+    color: #777;
+    font-style: italic;
+    text-align: center;
+}
+
+
 
 @media (max-width: 600px) {
     .slot img {

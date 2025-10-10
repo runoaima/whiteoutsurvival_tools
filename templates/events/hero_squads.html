@@ -1,40 +1,36 @@
 {% extends "base/base.html" %}
+{% load static %}
 
 {% block content %}
 
-{% load static %}
+<h3>遠征行軍シミュレーター</h3>
 
-<head>
-    <title>部隊編成UI</title>
-    <h3>遠征行軍シミュレーター</h3>
-    <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'events/css/hero_squads.css' %}">
-</head>
+<link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'events/css/hero_squads.css' %}">
 
-<body>
-    <main>
-        <!-- 編成スロット -->
-        <div class="slot-container">
-            <div class="slot" data-slot="1">＋</div>
-            <div class="slot" data-slot="2">＋</div>
-            <div class="slot" data-slot="3">＋</div>
-        </div>
+<main>
+    <!-- 編成スロット -->
+    <div class="slot-container">
+        <div class="slot" data-slot="1">＋</div>
+        <div class="slot" data-slot="2">＋</div>
+        <div class="slot" data-slot="3">＋</div>
+    </div>
 
-        <!-- 選択済みユニット表示 -->
-        <div class="unit-list" id="unitList"></div>
-    </main>
+    <!-- スキル表示エリア -->
+    <div id="skillDisplayContainer" class="skill-display-container hidden"></div>
 
     <!-- キャラ選択モーダル -->
     <div class="modal hidden" id="modal">
         <div class="modal-content">
             <h4>英雄を選択</h4>
-            
+
             <div class="character-grid">
-                <!--キャラなし 初期状態に戻す-->
+                <!-- キャラなし -->
                 <div class="character-card" data-name="none">
                     <img src="{% static 'images/events/hero_squads/none.png' %}" alt="キャラなし">
                     <p>キャラなし</p>
                 </div>
+
                 <!-- キャラ1 -->
                 <div class="character-card" data-name="スミス">
                     <img src="{% static 'images/events/hero_squads/smith.png' %}" alt="スミス">
@@ -301,7 +297,12 @@
                     <p>🏹 ウルカヌス</p>
                 </div>
             </div>
-        <script src="script.js"></script>
+        </div>
+    </div>
+</main>
+
+
+<script src="script.js"></script>
 </body>
 
 

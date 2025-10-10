@@ -313,3 +313,24 @@ select:focus, table:focus-within {
 .btn-save:hover {
     background-color: #45a049; /* ホバー時に少し暗い緑色に */
 }
+
+/* ========================== スマホでのテーブル縮小対応 ========================== */
+@media (max-width: 768px) {
+    .styled-table {
+        font-size: 0.8em;
+        width: 100%;
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
+
+    .styled-table th, .styled-table td {
+        padding: 0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .styled-table {
+        transform: scale(0.9);
+        transform-origin: top center;
+    }
+}
